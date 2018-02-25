@@ -1,28 +1,221 @@
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+apply plugin: 'org.greenrobot.greendao'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+    maven { url 'https://maven.google.com' }
+    google()
+}
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "com.playlistappkotlin"
-        minSdkVersion 15
-        targetSdkVersion 27
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        archivesBaseName = "PlaylistApp-$versionName"
+        vectorDrawables.useSupportLibrary = true
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+        multiDexEnabled true
     }
     buildTypes {
         release {
+            postprocessing {
+                removeUnusedCode false
+                removeUnusedResources false
+                obfuscate false
+                optimizeCode false
+                proguardFile 'proguard-rules.pro'
+            }
+            applicationVariants.all { variant ->
+                variant.outputs.all {
+                    def date = new Date()
+                    def formattedDate = date.format('yyyyMMddHHmmss')
+                    outputFileName = "${variant.name.replace("-release", "-" + formattedDate)}-${variant.versionName}.apk"
+                }
+            }
+
+            buildConfigField("String", "BASE_URL", "\"http://ws.audioscrobbler.com/2.0/\"")
+            buildConfigField("String", "API_KEY", "\"56532a164dfe077a343683169bb3a201\"")
+        }
+
+        debug {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "BASE_URL", "\"http://ws.audioscrobbler.com/2.0/\"")
+            buildConfigField("String", "API_KEY", "\"56532a164dfe077a343683169bb3a201\"")
         }
     }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
+    packagingOptions {
+        pickFirst 'META-INF/LICENSE'
+        pickFirst 'META-INF/DEPENDENCIES'
+        pickFirst 'META-INF/NOTICE'
+        exclude 'META-INF/rxjava.properties'
+    }
+
+    afterEvaluate {
+        tasks.matching {
+            it.name.startsWith('dex')
+        }.each { dx ->
+            if (dx.additionalParameters == null) {
+                dx.additionalParameters = []
+            }
+            dx.additionalParameters += "--set-max-idx-number=55000"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+configurations.all {
+    resolutionStrategy {
+        force "com.android.support:support-annotations:$deps.supportLibraryVersion"
+    }
+}
+
+greendao {
+    schemaVersion 1
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:27.0.2'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    // Architecture components
+    implementation rootProject.ext.deps.roomRuntime
+    implementation rootProject.ext.deps.liveData
+    annotationProcessor rootProject.ext.deps.lifeCycleCompiler
+    implementation rootProject.ext.deps.roomRuntime
+    annotationProcessor rootProject.ext.deps.roomCompiler
+
+    // Support
+    implementation rootProject.ext.deps.supportLibrary
+    implementation rootProject.ext.deps.supportCompat
+    implementation rootProject.ext.deps.supportv4
+    implementation rootProject.ext.deps.supportv13
+    implementation rootProject.ext.deps.supportRecyclerView
+    implementation rootProject.ext.deps.supportDesign
+    implementation rootProject.ext.deps.supportPercent
+    implementation rootProject.ext.deps.supportCardView
+    implementation rootProject.ext.deps.supportConstraint
+
+
+    // Dependencies for local unit tests
+    testImplementation rootProject.ext.deps.junit
+    testImplementation rootProject.ext.deps.mockwebserver
+    testImplementation rootProject.ext.deps.mockitoAll
+    testImplementation rootProject.ext.deps.hamcrestAll
+    testImplementation rootProject.ext.deps.powermockModuleJunit
+    testImplementation rootProject.ext.deps.powermockApiMockito
+    testImplementation rootProject.ext.deps.mockitoCore
+    testAnnotationProcessor rootProject.ext.deps.daggerCompiler
+
+    // Android Testing Support Library's runner and rules
+    androidTestImplementation rootProject.ext.deps.supportTestRunner
+    androidTestImplementation rootProject.ext.deps.supportTestRules
+
+    // Espresso UI Testing dependencies.
+    androidTestImplementation rootProject.ext.deps.espresso
+    androidTestImplementation rootProject.ext.deps.espressoContrib
+    androidTestImplementation rootProject.ext.deps.espressoIntents
+    androidTestImplementation rootProject.ext.deps.mockitoCore
+    androidTestAnnotationProcessor rootProject.ext.deps.daggerCompiler
+    androidTestImplementation(rootProject.ext.deps.espressoContrib) {
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude module: 'recyclerview-v7'
+    }
+    androidTestImplementation('com.squareup.okhttp3:mockwebserver:3.6.0') {
+        exclude module: 'okio'
+        exclude module: 'okhttp'
+    }
+
+
+    implementation(rootProject.ext.deps.crashlytics) {
+        transitive = true;
+    }
+    implementation(rootProject.ext.deps.crashlyticsAnswers) {
+        transitive = true;
+    }
+
+    implementation rootProject.ext.deps.otto
+
+    implementation rootProject.ext.deps.timber
+
+    implementation rootProject.ext.deps.butterknife
+    annotationProcessor rootProject.ext.deps.butterknifeCompiler
+
+    // Kotlin
+    implementation rootProject.ext.deps.kotlinStandardLibrary
+
+    // Rx
+    implementation rootProject.ext.deps.rxKotlin
+    implementation rootProject.ext.deps.rxAndroid
+    implementation rootProject.ext.deps.rxNetwork
+
+    // Retrofit
+    implementation  rootProject.ext.deps.retrofit
+    implementation  rootProject.ext.deps.gsonConverter
+    implementation  rootProject.ext.deps.retrofitAdapter
+    implementation  rootProject.ext.deps.gson
+
+    // Network
+    implementation  rootProject.ext.deps.okhttp3
+    implementation  rootProject.ext.deps.okhttp3urlConnection
+    implementation  rootProject.ext.deps.logging
+    implementation  rootProject.ext.deps.okio
+
+    // Dependency Injection
+    implementation rootProject.ext.deps.dagger
+    annotationProcessor rootProject.ext.deps.daggerCompiler
+    compileOnly rootProject.ext.deps.javaAnnotation
+
+    implementation rootProject.ext.deps.greenDao
+
+    implementation rootProject.ext.deps.googleGcm
+    implementation rootProject.ext.deps.googleAnalytics
+
+    implementation rootProject.ext.deps.glide
+    annotationProcessor rootProject.ext.deps.glideannotationProcessor
+
+    implementation rootProject.ext.deps.calligraphyVersion
+
+    implementation rootProject.ext.deps.circleimageview
+    implementation rootProject.ext.deps.shortcutBadger
+
+    implementation group: 'com.nineoldandroids', name: 'library', version: '2.4.0'
+    implementation group: 'javax.annotation', name: 'javax.annotation-api', version: '1.2'
+}
+
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+        mavenCentral()
+    }
+
+    dependencies {
+        // These docs use an open ended version so that our plugin
+        // can be updated quickly in response to Android tooling updates
+
+        // We recommend changing it to the latest version from our changelog:
+        // https://docs.fabric.io/android/changelog.html#fabric-gradle-plugin
+        classpath 'io.fabric.tools:gradle:1.22.0'
+    }
 }
