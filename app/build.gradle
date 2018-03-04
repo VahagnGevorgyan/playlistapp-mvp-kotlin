@@ -1,6 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
@@ -185,7 +188,6 @@ dependencies {
     // Dependency Injection
     implementation rootProject.ext.deps.dagger
     annotationProcessor rootProject.ext.deps.daggerCompiler
-    compileOnly rootProject.ext.deps.javaAnnotation
 
     implementation rootProject.ext.deps.greenDao
 

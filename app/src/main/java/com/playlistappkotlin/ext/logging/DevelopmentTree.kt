@@ -3,7 +3,7 @@ package com.playlistappkotlin.ext.logging
 import android.annotation.SuppressLint
 import android.os.AsyncTask
 import android.util.Log
-import com.playlistappkotlin.ext.TIMBER_CRASH_LINE_POSITION
+import com.playlistappkotlin.ext.Constants.Companion.TIMBER_CRASH_LINE_POSITION
 import com.playlistappkotlin.ext.forceCrashlyticsCrashWithMessage
 import com.playlistappkotlin.ext.logAtCrashlytics
 import timber.log.Timber
