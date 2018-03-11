@@ -1,5 +1,6 @@
 package com.playlistappkotlin.data.db
 
+import com.playlistappkotlin.data.network.data.track.TrackItem
 import io.reactivex.Observable
 
 interface IDbHelper {

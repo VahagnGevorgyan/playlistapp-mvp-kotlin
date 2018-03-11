@@ -4,6 +4,9 @@ import android.app.Application
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.playlistappkotlin.BuildConfig
+import com.playlistappkotlin.data.network.api.ApiHelper
+import com.playlistappkotlin.data.network.api.ApiInterface
+import com.playlistappkotlin.data.network.session.Session
 import dagger.Module
 import dagger.Provides
 import okhttp3.HttpUrl
@@ -52,8 +55,8 @@ class ApiModule(private val mApp: Application) {
     @Provides
     @Singleton
     @ApiUrl
-    internal fun provideApiUrl(): HttpUrl? {
-        return HttpUrl.parse(BuildConfig.BASE_URL)
+    internal fun provideApiUrl(): HttpUrl {
+        return HttpUrl.parse(BuildConfig.BASE_URL)!!
     }
 
     @Provides

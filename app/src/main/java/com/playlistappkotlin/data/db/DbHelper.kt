@@ -1,5 +1,7 @@
 package com.playlistappkotlin.data.db
 
+import com.playlistappkotlin.data.db.model.TrackDao
+import com.playlistappkotlin.data.network.data.track.TrackItem
 import io.reactivex.Observable
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -8,24 +10,24 @@ import javax.inject.Singleton
 class DbHelper @Inject
 constructor(private val mTrackDao: TrackDao) : IDbHelper {
 
-    val allTracks: Observable<List<TrackItem>>
+    override val allTracks: Observable<List<TrackItem>>
         get() = Observable.fromCallable({ mTrackDao.loadAllTracks() })
 
-    fun saveTrack(track: TrackItem): Observable<Boolean> {
+    override fun saveTrack(trackItem: TrackItem): Observable<Boolean> {
         return Observable.fromCallable {
-            mTrackDao.insertTrack(track)
+            mTrackDao.insertTrack(trackItem)
             true
         }
     }
 
-    fun deleteTrack(track: TrackItem): Observable<Boolean> {
+    override fun deleteTrack(track: TrackItem): Observable<Boolean> {
         return Observable.fromCallable {
             mTrackDao.deleteTrack(track)
             true
         }
     }
 
-    fun saveTrackList(trackItems: List<TrackItem>): Observable<Boolean> {
+    override fun saveTrackList(trackItems: List<TrackItem>): Observable<Boolean> {
         return Observable.fromCallable {
             mTrackDao.insertAll(trackItems)
             true

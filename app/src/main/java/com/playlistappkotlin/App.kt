@@ -3,6 +3,10 @@ package com.playlistappkotlin
 import android.app.Application
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.answers.Answers
+import com.playlistappkotlin.di.api.ApiModule
+import com.playlistappkotlin.di.component.ApplicationComponent
+import com.playlistappkotlin.di.component.DaggerApplicationComponent
+import com.playlistappkotlin.di.module.ApplicationModule
 import com.playlistappkotlin.eventbus.SingletonBus
 import com.playlistappkotlin.ext.logging.DevelopmentTree
 import com.playlistappkotlin.ext.logging.ProductionTree
@@ -11,12 +15,14 @@ import timber.log.Timber
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 import javax.inject.Inject
 
-class App: Application() {
+open class App: Application() {
 
-    lateinit var mContext: App
+    protected lateinit var mContext: App
 
     @Inject
-    private lateinit var mCalligraphyConfig: CalligraphyConfig
+    protected lateinit var mCalligraphyConfig: CalligraphyConfig
+
+    protected lateinit var mAppComponent: ApplicationComponent
 
     override fun onCreate() {
         super.onCreate()
@@ -25,7 +31,7 @@ class App: Application() {
 
         initializeEventBus()
         initializeFabric()
-//        initializeInjector()
+        initializeInjector()
         initializeCalligraphy()
     }
 
@@ -35,22 +41,22 @@ class App: Application() {
         SingletonBus.initialize()
     }
 
-//    /**
-//     * Initializing Injector.
-//     */
-//    private fun initializeInjector() {
-//        Timber.d("Initializing ApplicationComponent")
-//        mAppComponent = buildComponent()
-//        mAppComponent.inject(this)
-//    }
-//
-//    protected fun buildComponent(): ApplicationComponent {
-//        Timber.d("Build App Component")
-//        return mAppComponent = DaggerApplicationComponent.builder()
-//                .applicationModule(ApplicationModule(this))
-//                .apiModule(ApiModule(this))
-//                .build()
-//    }
+    /**
+     * Initializing Injector.
+     */
+    private fun initializeInjector() {
+        Timber.d("Initializing ApplicationComponent")
+        mAppComponent = buildComponent()
+        mAppComponent.inject(this)
+    }
+
+    protected fun buildComponent(): ApplicationComponent {
+        Timber.d("Build App Component")
+        return DaggerApplicationComponent.builder()
+                .applicationModule(ApplicationModule(this))
+                .apiModule(ApiModule(this))
+                .build()
+    }
 
     /**
      * Initializing [Fabric] + [Crashlytics] + [Timber]
@@ -74,32 +80,4 @@ class App: Application() {
         Timber.d("Initializing CalligraphyConfig")
         CalligraphyConfig.initDefault(mCalligraphyConfig)
     }
-
-
-    /**
-     * Returns application context.
-     */
-    fun getContext(): App {
-        return mContext
-    }
-
-    /**
-//     * Returns Dagger App Component instance.
-//     *
-//     * @return
-//     */
-//    fun getAppComponent(): ApplicationComponent {
-//        return getContext().mAppComponent
-//    }
-//
-//
-//    /**
-//     * Needed to replace the component with a test specific one.
-//     *
-//     * @param applicationComponent
-//     */
-//    //
-//    fun setComponent(applicationComponent: ApplicationComponent) {
-//        mAppComponent = applicationComponent
-//    }
 }

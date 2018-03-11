@@ -3,6 +3,10 @@ package com.playlistappkotlin.di.module
 import android.app.Application
 import android.content.Context
 import com.playlistappkotlin.R
+import com.playlistappkotlin.data.DataManager
+import com.playlistappkotlin.data.IDataManager
+import com.playlistappkotlin.data.settings.AppSettingsHelper
+import com.playlistappkotlin.data.settings.IAppSettingsHelper
 import com.playlistappkotlin.di.ApplicationContext
 import com.playlistappkotlin.di.PreferenceInfo
 import com.playlistappkotlin.di.api.ApiModule
@@ -13,7 +17,7 @@ import dagger.Provides
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 import javax.inject.Singleton
 
-@Module(includes = arrayOf(ApiModule::class, DatabaseModule::class))
+@Module(includes = [(ApiModule::class), (DatabaseModule::class)])
 class ApplicationModule(private val mApplication: Application) {
 
     @Provides

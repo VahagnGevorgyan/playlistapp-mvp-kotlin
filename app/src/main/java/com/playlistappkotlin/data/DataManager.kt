@@ -1,7 +1,12 @@
 package com.playlistappkotlin.data
 
 import android.content.Context
+import com.playlistappkotlin.data.db.IDbHelper
+import com.playlistappkotlin.data.network.data.track.TrackItem
+import com.playlistappkotlin.data.network.data.track.TrackResData
 import com.playlistappkotlin.di.ApplicationContext
+import com.playlistappkotlin.data.network.api.ApiHelper
+import com.playlistappkotlin.data.settings.IAppSettingsHelper
 import io.reactivex.Observable
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -15,7 +20,7 @@ constructor(@param:ApplicationContext private val mContext: Context,
 
 
     val allTracks: Observable<List<TrackItem>>
-        get() = dbHelper.getAllTracks()
+        get() = dbHelper.allTracks
 
     fun doTracksApiCall(country: String,
                         limit: Int?,

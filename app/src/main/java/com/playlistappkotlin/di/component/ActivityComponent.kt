@@ -1,10 +1,11 @@
 package com.playlistappkotlin.di.component
 
 import com.playlistappkotlin.di.PerActivity
+import com.playlistappkotlin.di.module.ActivityModule
 import dagger.Component
 
 @PerActivity
-@Component(dependencies = arrayOf(ApplicationComponent::class), modules = arrayOf(ActivityModule::class))
+@Component(dependencies = [(ApplicationComponent::class)], modules = [(ActivityModule::class)])
 interface ActivityComponent {
 
 //    fun inject(activity: SplashActivity)
