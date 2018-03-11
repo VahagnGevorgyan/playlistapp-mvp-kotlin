@@ -3,9 +3,6 @@ package com.playlistappkotlin.data.db.model
 import android.arch.persistence.room.*
 import com.playlistappkotlin.data.network.data.track.TrackItem
 
-/**
- * SQLite table tracks DAO interface.
- */
 @Dao
 interface TrackDao {
 

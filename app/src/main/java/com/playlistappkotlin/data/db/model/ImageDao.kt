@@ -6,9 +6,6 @@ import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
 import com.playlistappkotlin.data.network.data.track.Image
 
-/**
- * SQLite table images DAO interface.
- */
 @Dao
 interface ImageDao {
 

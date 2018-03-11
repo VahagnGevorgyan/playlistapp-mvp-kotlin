@@ -12,5 +12,4 @@ interface IDbHelper {
     fun deleteTrack(track: TrackItem): Observable<Boolean>
 
     fun saveTrackList(trackItems: List<TrackItem>): Observable<Boolean>
-
 }
