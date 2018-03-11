@@ -11,26 +11,15 @@ import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/**
- * Provides data for the app.
- */
+
 @Singleton
 class ApiHelper @Inject constructor(private val mApiService: ApiInterface,
                                     private val mSession: Session,
                                     baseUrl: HttpUrl
 ) {
-    /**
-     * Returns base url for web services calls.
-     *
-     * @return
-     */
+
     val baseUrl: String = baseUrl.toString()
 
-    /**
-     * Returns Tracks response.
-     *
-     * @return
-     */
     fun doTrackListCall(country: String,
                         limit: Int?,
                         page: Int?): Observable<TrackResData> {
@@ -45,11 +34,6 @@ class ApiHelper @Inject constructor(private val mApiService: ApiInterface,
 
     // PROCESSING RESULT
 
-    /**
-     * Processing received Tracks List Response data.
-     *
-     * @return
-     */
     private fun processTrackListResponse(): Function<TrackResponse, ObservableSource<TrackResData>> {
         Timber.d("Processing received Track List Response data")
         return Function(function = { Observable.just(it.data) })

@@ -8,9 +8,7 @@ import io.reactivex.functions.Function
 import retrofit2.Response
 import timber.log.Timber
 
-/**
- * Various data processing and validation methods for Rx chains.
- */
+
 object ApiMethods {
 
     /**
@@ -33,7 +31,7 @@ object ApiMethods {
      * @param <T>
      * @return
     </T> */
-    fun <T> validateJSON(): Function<Response<T>, ObservableSource<T>> {
+    private fun <T> validateJSON(): Function<Response<T>, ObservableSource<T>> {
         return Function(function = {
             Timber.d("Validating parsed data object values")
             Observable.just<T>(it.body())
@@ -44,7 +42,7 @@ object ApiMethods {
      * Check for error being returned by Retrofit.
      */
     @SuppressLint("CheckResult")
-    fun <T> checkForRetrofitError(): Function<Response<T>, ObservableSource<Response<T>>> {
+    private fun <T> checkForRetrofitError(): Function<Response<T>, ObservableSource<Response<T>>> {
         return Function(function = {
             Timber.d("Checking web service response for Retrofit error presence")
             if (!it.isSuccessful) {
@@ -74,7 +72,7 @@ object ApiMethods {
      * @return
     </T> */
     @SuppressLint("CheckResult")
-    fun <T> checkResponseForKOError(): Function<Response<T>, ObservableSource<Response<T>>> {
+    private fun <T> checkResponseForKOError(): Function<Response<T>, ObservableSource<Response<T>>> {
         return Function(function = {
             Timber.d("Checking web service response for JSON \"KO\" error presence")
 

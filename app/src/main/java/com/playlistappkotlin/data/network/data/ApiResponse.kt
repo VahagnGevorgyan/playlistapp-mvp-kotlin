@@ -20,7 +20,7 @@ open class ApiResponse : ApiError(), Serializable {
     val isSuccessful: Boolean
         get() = mErrorCode <= 0
 
-    //        return mMsg.isEmpty(); // TODO: Open after checking
+
     val isOk: Boolean
         get() = true
 
@@ -31,11 +31,12 @@ open class ApiResponse : ApiError(), Serializable {
                 '}'.toString()
     }
 
-    override fun equals(o: Any?): Boolean {
-        if (this === o) return true
-        if (o == null || javaClass != o.javaClass) return false
+    @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || javaClass != other.javaClass) return false
 
-        val apiResponse = o as ApiResponse?
+        val apiResponse = other as ApiResponse?
 
         return if (if (mMsg != null) mMsg != apiResponse!!.mMsg else apiResponse!!.mMsg != null) false else mCode == apiResponse.mCode
 

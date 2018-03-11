@@ -26,11 +26,12 @@ open class ApiError : Exception() {
                 '}'.toString()
     }
 
-    override fun equals(o: Any?): Boolean {
-        if (this === o) return true
-        if (o == null || javaClass != o.javaClass) return false
+    @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || javaClass != other.javaClass) return false
 
-        val error = o as ApiError?
+        val error = other as ApiError?
 
         return if (mMessage != null) mMessage == error!!.mMessage else error!!.mMessage == null
     }

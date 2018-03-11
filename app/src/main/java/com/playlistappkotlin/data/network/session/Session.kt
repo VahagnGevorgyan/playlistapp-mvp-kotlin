@@ -13,19 +13,8 @@ import java.net.URL
  * When shutting down the app, this data will disappear without a trace. No persistence.
  * Class is able to reconstruct itself, if Android nullifies Singletons.
  */
-class Session
-/**
- * Constructor.
- *
- * @param base - url
- */
-(base: String, apiKey: String) {
+class Session (base: String, apiKey: String) {
 
-    /**
-     * Returns Tracks List Web Service URL value.
-     *
-     * @return
-     */
     val trackListServiceURL: String
 
     private var mIsLoggedIn: Boolean = false
@@ -34,13 +23,6 @@ class Session
 
     /**
      * Tells if the User is logged in.
-     *
-     * @return
-     */
-    /**
-     * Sets if the User is logged in.
-     *
-     * @param loggedIn
      */
     var isLoggedIn: Boolean
         get() = synchronized(mLock) {
@@ -54,12 +36,8 @@ class Session
 
 
     init {
-        var base = base
         Timber.d("Creating App Session")
-
-
-        base = constructBaseUrl(base, apiKey, ENDPOINT_API_BASE)
-        trackListServiceURL = constructFullUrl(base, ENDPOINT_TRACK_LIST)
+        trackListServiceURL = constructFullUrl(constructBaseUrl(base, apiKey, ENDPOINT_API_BASE), ENDPOINT_TRACK_LIST)
     }
 
     /**
@@ -101,5 +79,4 @@ class Session
                 .replace("//".toRegex(), "/")
                 .replace(":/", "://")
     }
-
 }
