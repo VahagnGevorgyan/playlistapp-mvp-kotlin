@@ -54,7 +54,7 @@ open class App: Application() {
         Timber.d("Build App Component")
         return DaggerApplicationComponent.builder()
                 .applicationModule(ApplicationModule(this))
-                .apiModule(ApiModule(this))
+                .apiModule(ApiModule()) // TODO : Check if this necessary
                 .build()
     }
 
