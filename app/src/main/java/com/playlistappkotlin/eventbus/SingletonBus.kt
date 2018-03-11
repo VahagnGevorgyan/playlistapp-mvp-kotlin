@@ -7,17 +7,11 @@ class SingletonBus {
 
     private var mBus: Bus = Bus()
 
-    fun getInstance(): SingletonBus? {
-        return instance
-    }
-
     companion object {
-        private var instance: SingletonBus? = null
+        lateinit var instance: SingletonBus
 
         fun initialize() {
-            if (instance == null) {
-                instance = SingletonBus()
-            }
+            instance = SingletonBus()
         }
     }
 

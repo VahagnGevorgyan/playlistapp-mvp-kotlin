@@ -1,3 +1,58 @@
 <resources>
-    <string name="app_name">PlaylistAppKotlin</string>
+    <string name="app_name">PlaylistApp</string>
+    <string name="filter_title_app">play list app</string>
+    <string name="filter_uri_app">https://www.apple.com/itunes/</string>
+
+    <string name="path_uri">android.resource://%1$s/%2$d</string>
+
+    <!-- App Message -->
+    <string name="api_retry_error">Please retry!</string>
+    <string name="api_default_error">Something wrong happened!</string>
+    <string name="some_error">Some Error Occurred!</string>
+    <string name="connection_error">Internet connection lost!</string>
+    <string name="dialog_ok">OK</string>
+
+    <!-- HOME -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- MENU -->
+    <string name="menu_tracks">My Tracks</string>
+    <string name="menu_favorites">Favorites</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_about">About</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_communicate">Communicate</string>
+
+    <!-- POPUP -->
+    <string name="popup_offline_title">Info</string>
+    <string name="popup_offline_message">Sorry, no Internet connectivity detected. Please reconnect and try again.</string>
+    <string name="popup_offline_retry">Retry</string>
+
+    <!-- TRACKS -->
+    <string name="tracks_no_items">No tracks yet!</string>
+    <string name="str_more">More</string>
+    <string name="str_track_time">Duration: %1$s min.</string>
+    <string name="str_copied">Copied</string>
+    <string name="str_clipboard_message">copy</string>
+    <string name="str_settings">Settings</string>
+    <string name="str_select_country">Select country*</string>
+    <string name="str_select_limit">Select limit*</string>
+    <string name="str_error_empty_text">Field is required</string>
+
+    <!-- SETTINGS -->
+    <string name="settings_min_number">5</string>
+    <string name="settings_max_number">30</string>
+
+    <!-- ABOUT -->
+    <string name="about_desc">Sample application, which demonstrate MVP, RxJava, Dagger2 on Android</string>
+    <string name="about_version_number">Version %1$s</string>
+
+    <!-- FAVORITES -->
+    <string name="favorites_no_items">No favorites yet!</string>
+
 </resources>

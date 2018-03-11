@@ -17,12 +17,14 @@ import javax.inject.Inject
 
 open class App: Application() {
 
-    protected lateinit var mContext: App
+    private lateinit var mContext: App
 
     @Inject
     protected lateinit var mCalligraphyConfig: CalligraphyConfig
 
-    protected lateinit var mAppComponent: ApplicationComponent
+    companion object {
+        lateinit var mAppComponent: ApplicationComponent
+    }
 
     override fun onCreate() {
         super.onCreate()
