@@ -15,9 +15,9 @@ class SearchSettings(prefs: AppPreferences) : BaseSettings(prefs) {
             prefs.setSetting(AppPreferences.Settings.TRACK_LIMIT_COUNT, limitCount)
         }
 
-    var country: String
-        get() = prefs.getString(AppPreferences.Settings.TRACK_COUNTRY.key(), DEFAULT_TRACK_COUNTRY).toString()
+    var country: String?
+        get() = prefs.getString(AppPreferences.Settings.TRACK_COUNTRY.key(), DEFAULT_TRACK_COUNTRY)
         set(country) {
-            prefs.setSetting(AppPreferences.Settings.TRACK_COUNTRY, country)
+            country?.let { prefs.setSetting(AppPreferences.Settings.TRACK_COUNTRY, it) }
         }
 }

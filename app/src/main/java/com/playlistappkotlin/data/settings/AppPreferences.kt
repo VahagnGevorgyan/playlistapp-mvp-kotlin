@@ -2,10 +2,10 @@ package com.playlistappkotlin.data.settings
 
 import android.content.Context
 import android.content.SharedPreferences
-import javax.inject.Inject
-import javax.inject.Singleton
 import com.playlistappkotlin.di.ApplicationContext
 import com.playlistappkotlin.di.PreferenceInfo
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Various methods for storing data in shared preferences.
@@ -15,12 +15,12 @@ class AppPreferences @Inject
 constructor(@ApplicationContext context: Context,
             @PreferenceInfo prefFileName: String) : SharedPreferences {
 
-    private val sPreferences: SharedPreferences?
+    private val sPreferences: SharedPreferences = context.getSharedPreferences(prefFileName, Context.MODE_PRIVATE)
 
     /**
      * Settings keys.
      */
-    enum class Settings private constructor(private val key: String, private val type: Class<*>) {
+    enum class Settings(private val key: String, private val type: Class<*>) {
         LOGGED_IN_MODE("LOGGED_IN_MODE", Int::class.java),
 
         IS_FIRST_LAUNCH("IS_FIRST_LAUNCH", Boolean::class.java),
@@ -39,8 +39,6 @@ constructor(@ApplicationContext context: Context,
     }
 
     init {
-        sPreferences = context.getSharedPreferences(prefFileName, Context.MODE_PRIVATE)
-
         if (!contains(Settings.IS_FIRST_LAUNCH)) {
             setSetting(Settings.IS_FIRST_LAUNCH, true)
         }
@@ -52,13 +50,7 @@ constructor(@ApplicationContext context: Context,
     }
 
     override fun contains(key: String): Boolean {
-        var retval = false
-
-        if (null != sPreferences) {
-            retval = sPreferences.contains(key)
-        }
-
-        return retval
+        return sPreferences.contains(key)
     }
 
     @Synchronized
@@ -70,27 +62,31 @@ constructor(@ApplicationContext context: Context,
         val key = settingsKey.key()
         val type = settingsKey.type()
 
-        if (null != settingsEditor) {
-            if (String::class.java == type) {
+        when (type) {
+            String::class.java -> {
                 settingsEditor.putString(key, value as String)
                 bChanged = true
-            } else if (Boolean::class.java == type) {
+            }
+            Boolean::class.java -> {
                 settingsEditor.putBoolean(key, value as Boolean)
                 bChanged = true
-            } else if (Int::class.java == type) {
+            }
+            Int::class.java -> {
                 settingsEditor.putInt(key, value as Int)
                 bChanged = true
-            } else if (Long::class.java == type) {
+            }
+            Long::class.java -> {
                 settingsEditor.putLong(key, value as Long)
                 bChanged = true
-            } else if (Float::class.java == type) {
+            }
+            Float::class.java -> {
                 settingsEditor.putFloat(key, value as Float)
                 bChanged = true
             }
+        }
 
-            if (bChanged) {
-                settingsEditor.commit()
-            }
+        if (bChanged) {
+            settingsEditor.apply()
         }
     }
 
@@ -104,48 +100,40 @@ constructor(@ApplicationContext context: Context,
         val key = settingsKey.key()
         val type = settingsKey.type()
 
-        if (null != settingsEditor) {
-            if (String::class.java == type) {
+        when (type) {
+            String::class.java -> {
                 settingsEditor.putString(key + keyAdd, value as String)
                 bChanged = true
-            } else if (Boolean::class.java == type) {
+            }
+            Boolean::class.java -> {
                 settingsEditor.putBoolean(key + keyAdd, value as Boolean)
                 bChanged = true
-            } else if (Int::class.java == type) {
+            }
+            Int::class.java -> {
                 settingsEditor.putInt(key + keyAdd, value as Int)
                 bChanged = true
-            } else if (Long::class.java == type) {
+            }
+            Long::class.java -> {
                 settingsEditor.putLong(key + keyAdd, value as Long)
                 bChanged = true
-            } else if (Float::class.java == type) {
+            }
+            Float::class.java -> {
                 settingsEditor.putFloat(key + keyAdd, value as Float)
                 bChanged = true
             }
+        }
 
-            if (bChanged) {
-                settingsEditor.commit()
-            }
+        if (bChanged) {
+            settingsEditor.apply()
         }
     }
 
-    override fun edit(): SharedPreferences.Editor? {
-        var editor: SharedPreferences.Editor? = null
-
-        if (null != sPreferences) {
-            editor = sPreferences.edit()
-        }
-
-        return editor
+    override fun edit(): SharedPreferences.Editor {
+        return sPreferences.edit()
     }
 
     override fun getAll(): Map<String, *> {
-        var map: Map<String, *> = emptyMap<String, Any>()
-
-        if (null != sPreferences) {
-            map = sPreferences.all
-        }
-
-        return map
+        return sPreferences.all
     }
 
     fun getBoolean(settingsKey: Settings): Boolean {
@@ -153,13 +141,7 @@ constructor(@ApplicationContext context: Context,
     }
 
     override fun getBoolean(key: String, defValue: Boolean): Boolean {
-        var retval = defValue
-
-        if (null != sPreferences) {
-            retval = sPreferences.getBoolean(key, defValue)
-        }
-
-        return retval
+        return sPreferences.getBoolean(key, defValue)
     }
 
     fun getFloat(settingsKey: Settings): Float {
@@ -167,13 +149,7 @@ constructor(@ApplicationContext context: Context,
     }
 
     override fun getFloat(key: String, defValue: Float): Float {
-        var retval = defValue
-
-        if (null != sPreferences) {
-            retval = sPreferences.getFloat(key, defValue)
-        }
-
-        return retval
+        return sPreferences.getFloat(key, defValue)
     }
 
     fun getInt(settingsKey: Settings): Int {
@@ -181,13 +157,7 @@ constructor(@ApplicationContext context: Context,
     }
 
     override fun getInt(key: String, defValue: Int): Int {
-        var retval = defValue
-
-        if (null != sPreferences) {
-            retval = sPreferences.getInt(key, defValue)
-        }
-
-        return retval
+        return sPreferences.getInt(key, defValue)
     }
 
     fun getLong(settingsKey: Settings): Long {
@@ -195,13 +165,7 @@ constructor(@ApplicationContext context: Context,
     }
 
     override fun getLong(key: String, defValue: Long): Long {
-        var retval = defValue
-
-        if (null != sPreferences) {
-            retval = sPreferences.getLong(key, defValue)
-        }
-
-        return retval
+        return sPreferences.getLong(key, defValue)
     }
 
     fun getString(settingsKey: Settings): String? {
@@ -209,35 +173,20 @@ constructor(@ApplicationContext context: Context,
     }
 
     override fun getString(key: String, defValue: String?): String? {
-        var retval = defValue
-
-        if (null != sPreferences) {
-            retval = sPreferences.getString(key, defValue)
-        }
-
-        return retval
+        return sPreferences.getString(key, defValue)
     }
 
     override fun registerOnSharedPreferenceChangeListener(
             listener: SharedPreferences.OnSharedPreferenceChangeListener) {
-
-        sPreferences?.registerOnSharedPreferenceChangeListener(listener)
+        sPreferences.registerOnSharedPreferenceChangeListener(listener)
     }
 
     override fun unregisterOnSharedPreferenceChangeListener(
             listener: SharedPreferences.OnSharedPreferenceChangeListener) {
-
-        sPreferences?.unregisterOnSharedPreferenceChangeListener(listener)
+        sPreferences.unregisterOnSharedPreferenceChangeListener(listener)
     }
 
     override fun getStringSet(key: String, defValue: Set<String>?): Set<String>? {
-        var retval = defValue
-
-        if (null != sPreferences) {
-            retval = sPreferences.getStringSet(key, defValue)
-        }
-
-        return retval
+        return sPreferences.getStringSet(key, defValue)
     }
-
 }

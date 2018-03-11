@@ -7,16 +7,15 @@ import java.lang.Integer.MIN_VALUE
  */
 class GeneralSettings(prefs: AppPreferences) : BaseSettings(prefs) {
 
-    var splashUrl: String
-        get() = prefs.getString(AppPreferences.Settings.SPLASH_URL.key(), "").toString()
+    var splashUrl: String?
+        get() = prefs.getString(AppPreferences.Settings.SPLASH_URL.key(), "")
         set(splashUrl) {
-            prefs.setSetting(AppPreferences.Settings.SPLASH_URL, splashUrl)
+            splashUrl?.let { prefs.setSetting(AppPreferences.Settings.SPLASH_URL, it) }
         }
 
-    var appVersion: Int
+    var appVersion: Int?
         get() = prefs.getInt(AppPreferences.Settings.PROPERTY_APP_VERSION.key(), MIN_VALUE)
         set(appVersion) {
-            prefs.setSetting(AppPreferences.Settings.PROPERTY_APP_VERSION, appVersion)
+            appVersion?.let { prefs.setSetting(AppPreferences.Settings.PROPERTY_APP_VERSION, it) }
         }
-
 }
