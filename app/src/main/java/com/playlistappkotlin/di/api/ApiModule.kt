@@ -1,6 +1,5 @@
 package com.playlistappkotlin.di.api
 
-import android.app.Application
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.playlistappkotlin.BuildConfig
@@ -18,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-class ApiModule(private val mApp: Application) {
+class ApiModule {
 
     @Provides
     @Singleton
@@ -34,7 +33,7 @@ class ApiModule(private val mApp: Application) {
 
     @Provides
     internal fun provideApiService(retrofit: Retrofit): ApiInterface {
-        return retrofit.create(ApiInterface::class.java!!)
+        return retrofit.create(ApiInterface::class.java)
     }
 
     @Provides
@@ -78,7 +77,6 @@ class ApiModule(private val mApp: Application) {
     @Singleton
     internal fun provideGson(): Gson {
         return GsonBuilder()
-                // .registerTypeAdapter(TrackResponse.class, new TrackFeedDeserializer()) // TODO: For Test - Remove after test
                 .setLenient()
                 .create()
     }

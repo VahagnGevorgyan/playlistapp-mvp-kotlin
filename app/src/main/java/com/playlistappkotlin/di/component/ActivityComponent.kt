@@ -23,5 +23,4 @@ interface ActivityComponent {
 //    fun inject(activity: WebViewActivity)
 //
 //    fun inject(networkStateManager: NetworkStateManager)
-
 }

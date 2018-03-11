@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager
 import com.playlistappkotlin.data.scheduler.ISchedulerProvider
 import com.playlistappkotlin.data.scheduler.SchedulerProvider
 import com.playlistappkotlin.di.ActivityContext
-import com.playlistappkotlin.di.PerActivity
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable

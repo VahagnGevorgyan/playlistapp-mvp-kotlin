@@ -12,16 +12,13 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-/**
- * Dagger module which provides SQLite database.
- */
 @Module
 class DatabaseModule {
 
     @Provides
     @Singleton
     internal fun providesDataBase(@ApplicationContext context: Context, @DatabaseInfo dbName: String): AppDatabase {
-        return Room.databaseBuilder(context, AppDatabase::class.java!!, dbName)
+        return Room.databaseBuilder(context, AppDatabase::class.java, dbName)
                 .fallbackToDestructiveMigration()
                 .build()
     }

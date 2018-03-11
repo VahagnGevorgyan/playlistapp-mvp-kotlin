@@ -6,9 +6,6 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-/**
- * Dagger module which provides Settings.
- */
 @Module
 class SettingsModule {
 
