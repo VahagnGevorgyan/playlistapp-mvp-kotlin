@@ -6,21 +6,29 @@ import android.support.v7.widget.LinearLayoutManager
 import com.playlistappkotlin.data.scheduler.ISchedulerProvider
 import com.playlistappkotlin.data.scheduler.SchedulerProvider
 import com.playlistappkotlin.di.ActivityContext
+import com.playlistappkotlin.di.PerActivity
+import com.playlistappkotlin.ext.network.NetworkStateHelper
+import com.playlistappkotlin.ext.network.NetworkStateManager
+import com.playlistappkotlin.ui.home.HomeMvpPresenter
+import com.playlistappkotlin.ui.home.HomeMvpView
+import com.playlistappkotlin.ui.home.HomePresenter
+import com.playlistappkotlin.ui.splash.SplashMvpPresenter
+import com.playlistappkotlin.ui.splash.SplashMvpView
+import com.playlistappkotlin.ui.splash.SplashPresenter
+import com.playlistappkotlin.ui.web.WebViewMvpPresenter
+import com.playlistappkotlin.ui.web.WebViewMvpView
+import com.playlistappkotlin.ui.web.WebViewPresenter
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
 
 @Module
-class ActivityModule(private val mActivity: AppCompatActivity) {
+class ActivityModule(@get:Provides
+                     val mActivity: AppCompatActivity) {
 
     @Provides
     @ActivityContext
     internal fun provideContext(): Context {
-        return mActivity
-    }
-
-    @Provides
-    internal fun provideActivity(): AppCompatActivity {
         return mActivity
     }
 
@@ -34,20 +42,27 @@ class ActivityModule(private val mActivity: AppCompatActivity) {
         return SchedulerProvider()
     }
 
-//    @Provides
-//    @PerActivity
-//    internal fun provideSplashPresenter(
-//            presenter: SplashPresenter<SplashMvpView>): SplashMvpPresenter<SplashMvpView> {
-//        return presenter
-//    }
-//
-//    @Provides
-//    @PerActivity
-//    internal fun provideHomePresenter(
-//            presenter: HomePresenter<HomeMvpView>): HomeMvpPresenter<HomeMvpView> {
-//        return presenter
-//    }
-//
+    @Provides
+    @PerActivity
+    fun provideSplashPresenter(
+            presenter: SplashPresenter<SplashMvpView>): SplashMvpPresenter<SplashMvpView> {
+        return presenter
+    }
+
+    @Provides
+    @PerActivity
+    fun provideHomePresenter(
+            presenter: HomePresenter<HomeMvpView>): HomeMvpPresenter<HomeMvpView> {
+        return presenter
+    }
+
+    @Provides
+    @PerActivity
+    fun provideWebViewPresenter(
+            presenter: WebViewPresenter<WebViewMvpView>): WebViewMvpPresenter<WebViewMvpView> {
+        return presenter
+    }
+
 //    @Provides
 //    @PerActivity
 //    internal fun provideTracksPresenter(
@@ -80,24 +95,16 @@ class ActivityModule(private val mActivity: AppCompatActivity) {
 //            presenter: FavoritesPresenter<FavoritesMvpView>): FavoritesMvpPresenter<FavoritesMvpView> {
 //        return presenter
 //    }
-//
-//    @Provides
-//    @PerActivity
-//    internal fun provideWebViewPresenter(
-//            presenter: WebViewPresenter<WebViewMvpView>): WebViewMvpPresenter<WebViewMvpView> {
-//        return presenter
-//    }
-//
-//    @Provides
-//    @PerActivity
-//    internal fun provideNetworkHelper(
-//            networkStateManager: NetworkStateManager): NetworkStateHelper {
-//        return networkStateManager
-//    }
+
+    @Provides
+    @PerActivity
+    internal fun provideNetworkHelper(
+            networkStateManager: NetworkStateManager): NetworkStateHelper {
+        return networkStateManager
+    }
 
     @Provides
     internal fun provideLinearLayoutManager(activity: AppCompatActivity): LinearLayoutManager {
         return LinearLayoutManager(activity)
     }
 }
-

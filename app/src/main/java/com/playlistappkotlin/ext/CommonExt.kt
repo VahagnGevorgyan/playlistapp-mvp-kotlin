@@ -59,9 +59,9 @@ fun validatePasswordConfirmation(password: String, confirmPwd: String): Boolean 
 }
 
 /**
- * Method for showing toast.
+ * Method for showing showToast.
  */
-fun toast(context: Activity, toastText: String) {
+fun showToast(context: Activity, toastText: String) {
 
     val inflater = LayoutInflater.from(context)
     val toastView = inflater.inflate(R.layout.layout_toast, context.findViewById(R.id.layoutToast), false)

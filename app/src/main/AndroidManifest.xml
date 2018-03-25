@@ -30,13 +30,33 @@
             android:name="io.fabric.ApiKey"
             android:value="1ef1f2f6eaf4a14366d82a5ce3cced118c32f2cf" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.splash.SplashActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:keepScreenOn="true"
+            android:noHistory="true"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.home.HomeActivity"
+            android:theme="@style/AppTheme">
+            <intent-filter android:label="@string/filter_title_app">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http"
+                    android:host="@string/filter_uri_app"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ui.web.WebViewActivity"
+            android:theme="@style/AppTheme"/>
+
     </application>
 
 </manifest>

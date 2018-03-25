@@ -28,16 +28,19 @@ import com.playlistappkotlin.di.component.DaggerActivityComponent
 import com.playlistappkotlin.di.module.ActivityModule
 import com.playlistappkotlin.ext.getNavigationBarSize
 import com.playlistappkotlin.ext.getStatusBarHeight
+import com.playlistappkotlin.ext.network.NetworkStateHelper
+import com.playlistappkotlin.ext.network.NetworkStateManager
 import com.playlistappkotlin.ext.setWindowUiVisibility
 import com.playlistappkotlin.ext.showLoadingDialog
 import com.playlistappkotlin.ui.home.HomeActivity
 import timber.log.Timber
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
+import javax.inject.Inject
 
 abstract class BaseActivity : EventBusActivity(), MvpView, BaseFragment.Callback {
 
-//    @Inject
-//    internal var mNetworkStateHelper: NetworkStateHelper? = null
+    @Inject
+    lateinit var mNetworkStateHelper: NetworkStateHelper
 
     /**
      * Layout container for using some cases.
@@ -59,11 +62,9 @@ abstract class BaseActivity : EventBusActivity(), MvpView, BaseFragment.Callback
     private var mProgressDialog: ProgressDialog? = null
 
     var activityComponent: ActivityComponent? = null
-        private set
 
-//    override val isNetworkConnected: Boolean
-//        get() = NetworkStateManager.isConnected(applicationContext)
-
+    override val isNetworkConnected: Boolean
+        get() = NetworkStateManager.isConnected(applicationContext)
 
     /**
      * Bind layout file.
@@ -105,12 +106,12 @@ abstract class BaseActivity : EventBusActivity(), MvpView, BaseFragment.Callback
         initializeNetworkStateManager()
     }
 
-    protected fun prepareWindow() {
+    private fun prepareWindow() {
         Timber.d("Preparing app window adding flags")
         setWindowUiVisibility(window)
     }
 
-    protected fun prepareLayout() {
+    protected open fun prepareLayout() {
         Timber.d("Preparing activity layout and set sizes, if software buttons exists on screen")
         mContainer?.let {
             it.setPadding(it.paddingLeft, it.paddingTop + getStatusBarHeight(this, false), it.paddingRight,
@@ -118,7 +119,7 @@ abstract class BaseActivity : EventBusActivity(), MvpView, BaseFragment.Callback
         }
     }
 
-    protected override fun attachBaseContext(newBase: Context) {
+    override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
@@ -170,10 +171,7 @@ abstract class BaseActivity : EventBusActivity(), MvpView, BaseFragment.Callback
 
     private fun initializeNetworkStateManager() {
         Timber.d("Tyring to initialize \"NetworkStateManager\"")
-
-//        if (mNetworkStateHelper != null) {
-//            mNetworkStateHelper!!.initializeNetworkStatusListener()
-//        }
+        mNetworkStateHelper.initializeNetworkStatusListener()
     }
 
     override fun onError(message: String?) {

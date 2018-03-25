@@ -7,12 +7,12 @@ import com.playlistappkotlin.data.scheduler.ISchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class BasePresenter<V : MvpView> @Inject
-constructor(
+public open class BasePresenter<V : MvpView> @Inject
+public constructor(
         val dataManager: IDataManager,
         val schedulerProvider: ISchedulerProvider,
         private val mCompositeDisposable: CompositeDisposable
-) : MvpPresenter<V> {
+) : @JvmSuppressWildcards MvpPresenter<V> {
 
     var mvpView: V? = null
         private set
