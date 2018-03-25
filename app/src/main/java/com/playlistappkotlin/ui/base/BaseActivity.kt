@@ -107,16 +107,14 @@ abstract class BaseActivity : EventBusActivity(), MvpView, BaseFragment.Callback
 
     protected fun prepareWindow() {
         Timber.d("Preparing app window adding flags")
-        setWindowUiVisibility(getWindow())
+        setWindowUiVisibility(window)
     }
 
     protected fun prepareLayout() {
         Timber.d("Preparing activity layout and set sizes, if software buttons exists on screen")
-        if (mContainer != null) {
-            mContainer!!.setPadding(mContainer!!.paddingLeft,
-                    mContainer!!.paddingTop + getStatusBarHeight(this, false),
-                    mContainer!!.paddingRight,
-                    getNavigationBarSize(this).y + mContainer!!.paddingBottom)
+        mContainer?.let {
+            it.setPadding(it.paddingLeft, it.paddingTop + getStatusBarHeight(this, false), it.paddingRight,
+                    getNavigationBarSize(this).y + it.paddingBottom)
         }
     }
 
@@ -138,14 +136,14 @@ abstract class BaseActivity : EventBusActivity(), MvpView, BaseFragment.Callback
 
     override fun showProgressBar() {
         hideProgressBar()
-        if (mProgressBar != null) {
-            mProgressBar!!.visibility = VISIBLE
+        mProgressBar?.let {
+            it.visibility = VISIBLE
         }
     }
 
     override fun hideProgressBar() {
-        if (mProgressBar != null) {
-            mProgressBar!!.visibility = View.GONE
+        mProgressBar?.let {
+            it.visibility = View.GONE
         }
     }
 
@@ -155,19 +153,19 @@ abstract class BaseActivity : EventBusActivity(), MvpView, BaseFragment.Callback
     }
 
     override fun hideLoading() {
-        if (mProgressDialog != null && mProgressDialog!!.isShowing) {
-            mProgressDialog!!.cancel()
+        mProgressDialog?.let {
+            if (it.isShowing) {
+                it.cancel()
+            }
         }
     }
 
     private fun showSnackBar(message: String) {
-        val snackbar = Snackbar.make(findViewById(android.R.id.content),
-                message, Snackbar.LENGTH_SHORT)
-        val sbView = snackbar.view
-        val textView = sbView
-                .findViewById<View>(android.support.design.R.id.snackbar_text) as TextView
+        val snackBar = Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT)
+        val sbView = snackBar.view
+        val textView = sbView.findViewById<View>(android.support.design.R.id.snackbar_text) as TextView
         textView.setTextColor(ContextCompat.getColor(this, R.color.white))
-        snackbar.show()
+        snackBar.show()
     }
 
     private fun initializeNetworkStateManager() {
@@ -179,9 +177,9 @@ abstract class BaseActivity : EventBusActivity(), MvpView, BaseFragment.Callback
     }
 
     override fun onError(message: String?) {
-        if (message != null) {
-            showSnackBar(message)
-        } else {
+        message?.let {
+            showSnackBar(it)
+        } ?: run {
             showSnackBar(getString(R.string.some_error))
         }
     }
@@ -191,9 +189,9 @@ abstract class BaseActivity : EventBusActivity(), MvpView, BaseFragment.Callback
     }
 
     override fun showMessage(message: String?) {
-        if (message != null) {
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-        } else {
+        message?.let {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        } ?: run {
             Toast.makeText(this, getString(R.string.some_error), Toast.LENGTH_SHORT).show()
         }
     }
@@ -211,15 +209,15 @@ abstract class BaseActivity : EventBusActivity(), MvpView, BaseFragment.Callback
     }
 
     override fun hideKeyboard() {
-        val view = this.getCurrentFocus()
-        if (view != null) {
+        val view = this.currentFocus
+        view?.let {
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0)
+            imm.hideSoftInputFromWindow(it.windowToken, 0)
         }
     }
 
     protected override fun onDestroy() {
-        mUnBinder!!.unbind()
+        mUnBinder?.unbind()
         super.onDestroy()
     }
 

@@ -33,12 +33,10 @@ constructor(
     }
 
     override fun handleApiError(error: ApiError?) {
-
         if (error == null) {
-            mvpView!!.onError(R.string.some_error)
+            mvpView?.onError(R.string.some_error)
             return
         }
-
-        error.message?.let { mvpView!!.onError(it) }
+        error.message?.let { mvpView?.onError(it) }
     }
 }

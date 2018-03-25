@@ -21,20 +21,17 @@ import com.playlistappkotlin.di.component.ActivityComponent
 
 abstract class BaseDialog: DialogFragment(), DialogMvpView {
 
- var baseActivity:BaseActivity? = null
-private set
-private var mUnBinder: Unbinder? = null
+    var baseActivity: BaseActivity? = null
+    private var mUnBinder: Unbinder? = null
 
     @BindView(R.id.progressBar)
     internal var mProgressBar: ProgressBar? = null
 
-    override val isNetworkConnected:Boolean
+    override val isNetworkConnected: Boolean
         get() = baseActivity != null && baseActivity!!.isNetworkConnected
 
     val activityComponent: ActivityComponent?
-        get() = if (baseActivity != null) {
-            baseActivity!!.activityComponent
-        } else null
+        get() = baseActivity?.activityComponent ?: run { null }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -46,51 +43,39 @@ private var mUnBinder: Unbinder? = null
 
     override fun showProgressBar() {
         hideProgressBar()
-        if (mProgressBar != null) {
-            mProgressBar!!.visibility = VISIBLE
+        mProgressBar?.let {
+            it.visibility = VISIBLE
         }
     }
 
     override fun hideProgressBar() {
-        if (mProgressBar != null) {
-            mProgressBar!!.visibility = View.GONE
+        mProgressBar?.let {
+            it.visibility = View.GONE
         }
     }
 
     override fun showLoading() {
-        if (baseActivity != null) {
-            baseActivity!!.showLoading()
-        }
+        baseActivity?.showLoading()
     }
 
     override fun hideLoading() {
-        if (baseActivity != null) {
-            baseActivity!!.hideLoading()
-        }
+        baseActivity?.hideLoading()
     }
 
     override fun onError(message: String?) {
-        if (baseActivity != null) {
-            baseActivity!!.onError(message)
-        }
+        baseActivity?.onError(message)
     }
 
-    override fun onError(@StringRes resId:Int) {
-        if (baseActivity != null) {
-            baseActivity!!.onError(resId)
-        }
+    override fun onError(@StringRes resId: Int) {
+        baseActivity?.onError(resId)
     }
 
     override fun showMessage(message: String?) {
-        if (baseActivity != null) {
-            baseActivity!!.showMessage(message)
-        }
+        baseActivity?.showMessage(message)
     }
 
-    override fun showMessage(@StringRes resId:Int) {
-        if (baseActivity != null) {
-            baseActivity!!.showMessage(resId)
-        }
+    override fun showMessage(@StringRes resId: Int) {
+        baseActivity?.showMessage(resId)
     }
 
     override fun onDetach() {
@@ -99,9 +84,7 @@ private var mUnBinder: Unbinder? = null
     }
 
     override fun hideKeyboard() {
-        if (baseActivity != null) {
-            baseActivity!!.hideKeyboard()
-        }
+        baseActivity?.hideKeyboard()
     }
 
     fun setUnBinder(unBinder: Unbinder) {
@@ -112,21 +95,15 @@ private var mUnBinder: Unbinder? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val root = RelativeLayout(activity)
-        root.layoutParams = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT)
-
+        root.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         val dialog = Dialog(context!!)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(root)
-        if (dialog.window != null) {
-            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog.window!!.setLayout(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.window?.let {
+            it.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            it.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         }
         dialog.setCanceledOnTouchOutside(false)
-
         return dialog
     }
 
@@ -135,25 +112,23 @@ private var mUnBinder: Unbinder? = null
         setUp(view)
     }
 
-    override fun show(fragmentManager: FragmentManager, tag:String) {
+    override fun show(fragmentManager: FragmentManager, tag: String) {
         val transaction = fragmentManager.beginTransaction()
         val prevFragment = fragmentManager.findFragmentByTag(tag)
-        if (prevFragment != null) {
-            transaction.remove(prevFragment)
+        prevFragment?.let {
+            transaction.remove(it)
         }
         transaction.addToBackStack(null)
         show(transaction, tag)
     }
 
-    override fun dismissDialog(tag:String) {
+    override fun dismissDialog(tag: String) {
         dismiss()
-        baseActivity!!.onFragmentDetached(tag)
+        baseActivity?.onFragmentDetached(tag)
     }
 
     override fun onDestroy() {
-        if (mUnBinder != null) {
-            mUnBinder!!.unbind()
-        }
+        mUnBinder?.unbind()
         super.onDestroy()
     }
 }

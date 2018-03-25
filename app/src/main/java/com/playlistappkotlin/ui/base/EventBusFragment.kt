@@ -17,7 +17,6 @@ open class EventBusFragment : Fragment() {
         } catch (e: IllegalStateException) {
             Timber.e(e.localizedMessage)
         }
-
         super.onStop()
     }
 }

@@ -14,11 +14,11 @@ import butterknife.BindView
 import butterknife.Unbinder
 import com.playlistappkotlin.R
 import com.playlistappkotlin.di.component.ActivityComponent
+import com.playlistappkotlin.ext.showLoadingDialog
 
 abstract class BaseFragment : EventBusFragment(), MvpView {
 
     var baseActivity: BaseActivity? = null
-        private set
     private var mUnBinder: Unbinder? = null
     private var mProgressDialog: ProgressDialog? = null
 
@@ -38,9 +38,7 @@ abstract class BaseFragment : EventBusFragment(), MvpView {
         get() = baseActivity != null && baseActivity!!.isNetworkConnected
 
     val activityComponent: ActivityComponent?
-        get() = if (baseActivity != null) {
-            baseActivity!!.activityComponent
-        } else null
+        get() = baseActivity?.activityComponent ?: run { null }
 
     /**
      * Initialize injector
@@ -81,50 +79,44 @@ abstract class BaseFragment : EventBusFragment(), MvpView {
 
     override fun showProgressBar() {
         hideProgressBar()
-        if (mProgressBar != null) {
-            mProgressBar!!.visibility = VISIBLE
+        mProgressBar?.let {
+            it.visibility = VISIBLE
         }
     }
 
     override fun hideProgressBar() {
-        if (mProgressBar != null) {
-            mProgressBar!!.visibility = View.GONE
+        mProgressBar?.let {
+            it.visibility = View.GONE
         }
     }
 
     override fun showLoading() {
         hideLoading()
-//        mProgressDialog = CommonUtils.showLoadingDialog(this.context)
+        mProgressDialog = this.context?.let { showLoadingDialog(it) }
     }
 
     override fun hideLoading() {
-        if (mProgressDialog != null && mProgressDialog!!.isShowing) {
-            mProgressDialog!!.cancel()
+        mProgressDialog?.let {
+            if (it.isShowing) {
+                it.cancel()
+            }
         }
     }
 
     override fun onError(message: String?) {
-        if (baseActivity != null) {
-            baseActivity!!.onError(message)
-        }
+        baseActivity?.onError(message)
     }
 
     override fun onError(@StringRes resId: Int) {
-        if (baseActivity != null) {
-            baseActivity!!.onError(resId)
-        }
+        baseActivity?.onError(resId)
     }
 
     override fun showMessage(message: String?) {
-        if (baseActivity != null) {
-            baseActivity!!.showMessage(message)
-        }
+        baseActivity?.showMessage(message)
     }
 
     override fun showMessage(@StringRes resId: Int) {
-        if (baseActivity != null) {
-            baseActivity!!.showMessage(resId)
-        }
+        baseActivity?.showMessage(resId)
     }
 
     override fun onDetach() {
@@ -133,27 +125,22 @@ abstract class BaseFragment : EventBusFragment(), MvpView {
     }
 
     override fun hideKeyboard() {
-        if (baseActivity != null) {
-            baseActivity!!.hideKeyboard()
-        }
+        baseActivity?.hideKeyboard()
     }
-
 
     fun setUnBinder(unBinder: Unbinder) {
         mUnBinder = unBinder
     }
 
     override fun onDestroy() {
-        if (mUnBinder != null) {
-            mUnBinder!!.unbind()
-        }
+        mUnBinder?.unbind()
         super.onDestroy()
     }
 
     interface Callback {
-
         fun onFragmentAttached()
 
         fun onFragmentDetached(tag: String)
     }
 }
+

@@ -17,7 +17,6 @@ abstract class EventBusActivity : AppCompatActivity() {
         } catch (e: IllegalStateException) {
             Timber.e(e.localizedMessage)
         }
-
         super.onStop()
     }
 
@@ -30,3 +29,4 @@ abstract class EventBusActivity : AppCompatActivity() {
 
     }
 }
+

@@ -4,3 +4,4 @@ interface DialogMvpView : MvpView {
 
     fun dismissDialog(tag: String)
 }
+

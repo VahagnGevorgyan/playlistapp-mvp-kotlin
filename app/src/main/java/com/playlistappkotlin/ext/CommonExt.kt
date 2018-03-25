@@ -19,13 +19,13 @@ import java.util.regex.Pattern
 fun showLoadingDialog(context: Context): ProgressDialog {
     val progressDialog = ProgressDialog(context)
     progressDialog.show()
-    if (progressDialog.window != null) {
-        progressDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    progressDialog.window?.let {
+        it.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        progressDialog.setContentView(R.layout.dialog_progress)
+        progressDialog.isIndeterminate = true
+        progressDialog.setCancelable(false)
+        progressDialog.setCanceledOnTouchOutside(false)
     }
-    progressDialog.setContentView(R.layout.dialog_progress)
-    progressDialog.isIndeterminate = true
-    progressDialog.setCancelable(false)
-    progressDialog.setCanceledOnTouchOutside(false)
     return progressDialog
 }
 
@@ -84,7 +84,7 @@ fun toast(context: Activity, toastText: String) {
 fun call(context: Context, phoneNumber: String) {
     try {
         val intent = Intent(Intent.ACTION_DIAL)
-        intent.data = Uri.parse("tel:" + phoneNumber)
+        intent.data = Uri.parse("tel: $phoneNumber")
         context.startActivity(intent)
     } catch (e: ActivityNotFoundException) {
         e.printStackTrace()
