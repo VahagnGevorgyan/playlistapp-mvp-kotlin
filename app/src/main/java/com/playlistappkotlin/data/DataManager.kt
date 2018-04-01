@@ -6,14 +6,14 @@ import com.playlistappkotlin.data.network.api.ApiHelper
 import com.playlistappkotlin.data.network.data.track.TrackItem
 import com.playlistappkotlin.data.network.data.track.TrackResData
 import com.playlistappkotlin.data.settings.IAppSettingsHelper
-import com.playlistappkotlin.di.ApplicationContext
+import com.playlistappkotlin.inject.qualifier.AppContext
 import io.reactivex.Observable
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class DataManager @Inject
-constructor(@param:ApplicationContext private val mContext: Context,
+constructor(@param:AppContext private val mContext: Context,
             override val apiHelper: ApiHelper,
             override val settingsHelper: IAppSettingsHelper,
             override val dbHelper: IDbHelper) : IDataManager {

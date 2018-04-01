@@ -7,14 +7,14 @@ import com.playlistappkotlin.data.scheduler.ISchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-public open class BasePresenter<V : MvpView> @Inject
+public open class BasePresenter @Inject
 public constructor(
         val dataManager: IDataManager,
         val schedulerProvider: ISchedulerProvider,
         private val mCompositeDisposable: CompositeDisposable
-) : @JvmSuppressWildcards MvpPresenter<V> {
+) : @JvmSuppressWildcards MvpPresenter {
 
-    var mvpView: V? = null
+    var mvpView: MvpView? = null
         private set
 
     val isViewAttached: Boolean
@@ -23,7 +23,7 @@ public constructor(
     val compositeDisposable: CompositeDisposable
         get() = if (mCompositeDisposable.isDisposed) CompositeDisposable() else mCompositeDisposable
 
-    override fun onAttach(mvpView: V) {
+    override fun onAttach(mvpView: MvpView) {
         this.mvpView = mvpView
     }
 

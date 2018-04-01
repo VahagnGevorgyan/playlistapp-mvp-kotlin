@@ -1,7 +1,7 @@
-package com.playlistappkotlin.di
+package com.playlistappkotlin.inject.scopes
 
 import javax.inject.Scope
 
 @Scope
 @Retention(AnnotationRetention.RUNTIME)
-annotation class PerService
+annotation class PerActivity

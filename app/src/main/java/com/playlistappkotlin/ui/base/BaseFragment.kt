@@ -13,8 +13,8 @@ import android.widget.ProgressBar
 import butterknife.BindView
 import butterknife.Unbinder
 import com.playlistappkotlin.R
-import com.playlistappkotlin.di.component.ActivityComponent
 import com.playlistappkotlin.ext.showLoadingDialog
+import com.playlistappkotlin.inject.components.ActivityComponent
 
 abstract class BaseFragment : EventBusFragment(), MvpView {
 

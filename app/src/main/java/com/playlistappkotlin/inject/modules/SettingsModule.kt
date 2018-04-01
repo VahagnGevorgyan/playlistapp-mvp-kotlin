@@ -1,4 +1,4 @@
-package com.playlistappkotlin.di.settings
+package com.playlistappkotlin.inject.modules
 
 import com.playlistappkotlin.data.settings.AppSettingsHelper
 import com.playlistappkotlin.data.settings.IAppSettingsHelper

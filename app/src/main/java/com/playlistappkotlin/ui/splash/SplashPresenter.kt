@@ -3,19 +3,21 @@ package com.playlistappkotlin.ui.splash
 import com.playlistappkotlin.data.IDataManager
 import com.playlistappkotlin.data.scheduler.ISchedulerProvider
 import com.playlistappkotlin.ui.base.BasePresenter
+import com.playlistappkotlin.ui.base.MvpView
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-public class SplashPresenter<V : SplashMvpView> @Inject
-public constructor(
+class SplashPresenter @Inject
+constructor(
         IDataManager: IDataManager,
         ISchedulerProvider: ISchedulerProvider,
         compositeDisposable: CompositeDisposable
-) : @JvmSuppressWildcards BasePresenter<V>(IDataManager, ISchedulerProvider, compositeDisposable), @JvmSuppressWildcards SplashMvpPresenter<V> {
+) : BasePresenter(IDataManager, ISchedulerProvider, compositeDisposable), SplashMvpPresenter {
 
-    override fun onAttach(mvpView: V) {
+    override fun onAttach(mvpView: MvpView) {
         super.onAttach(mvpView)
-        mvpView.onSplashAttached(TIMEOUT)
+
+        (mvpView as SplashMvpView).onSplashAttached(TIMEOUT)
     }
 
     companion object {

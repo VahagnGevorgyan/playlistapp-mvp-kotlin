@@ -1,14 +1,17 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+    ext.kotlin_version = '1.2.31'
     repositories {
         google()
         jcenter()
+        mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0-alpha03'
+        classpath 'com.android.tools.build:gradle:3.2.0-alpha07'
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.21"
+        [dependency: "javax.annotation:jsr250-api:1.0", type: "compileOnly"]
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
     // Exclude the version that the android plugin depends on.
     configurations.classpath.exclude group: 'com.android.tools.external.lombok'
@@ -18,6 +21,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        mavenCentral()
     }
 }
 
@@ -46,6 +50,10 @@ def roomVersion = '1.0.0'
 def rxAndroidVersion = '2.0.2'
 def rxKotlinVersion = '2.2.0'
 def kotlinVersion = '1.2.21'
+def rxBindingVersion = '2.1.1'
+def rxJavaVersion = '2.1.9'
+def kotlinExtensionVersion = '0.2'
+def gradlePluginVersion = '3.2.0-alpha07'
 
 ext.deps = [
         supportLibraryVersion       :   supportLibraryVersion,
@@ -60,6 +68,10 @@ ext.deps = [
         supportv4                   :   "com.android.support:support-v4:$supportLibraryVersion",
         supportv13                  :   "com.android.support:support-v13:$supportLibraryVersion",
         supportConstraint           :   "com.android.support.constraint:constraint-layout:1.0.2",
+
+        dataBinding                 :   "com.android.databinding:compiler:$gradlePluginVersion",
+
+        kotlinStdLib                :   "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion",
 
         roomCompiler                :   "android.arch.persistence.room:compiler:$roomVersion",
         lifeCycleCompiler           :   "android.arch.lifecycle:compiler:$roomVersion",
@@ -85,18 +97,22 @@ ext.deps = [
         logging                     :   'com.squareup.okhttp3:logging-interceptor:3.8.0',
         timber                      :   'com.jakewharton.timber:timber:4.5.1',
 
-        dagger                      :   'com.google.dagger:dagger:2.12',
-        daggerCompiler              :   'com.google.dagger:dagger-compiler:2.12',
+        dagger                      :   'com.google.dagger:dagger:2.13',
+        daggerCompiler              :   'com.google.dagger:dagger-compiler:2.13',
 
         otto                        :   'com.squareup:otto:1.3.8',
 
         greenDao                    :   "org.greenrobot:greendao:$greenDaoVersion",
 
         kotlinStandardLibrary       :   "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion",
+        kotlinExtension             :   "androidx.core:core-ktx:${kotlinExtensionVersion}",
 
         rxKotlin                    :   "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion",
         rxAndroid                   :   "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
         rxNetwork                   :   'com.github.pwittchen:reactivenetwork-rx2:0.12.1',
+        rxJava                      :   "io.reactivex.rxjava2:rxjava:$rxJavaVersion",
+        rxBinding                   :   "com.jakewharton.rxbinding2:rxbinding:${rxBindingVersion}",
+        rxBindingDesign             :   "com.jakewharton.rxbinding2:rxbinding-design:${rxBindingVersion}",
 
         crashlytics                 :   'com.crashlytics.sdk.android:crashlytics:2.9.0@aar',
         crashlyticsAnswers          :   'com.crashlytics.sdk.android:answers:1.3.11@aar',

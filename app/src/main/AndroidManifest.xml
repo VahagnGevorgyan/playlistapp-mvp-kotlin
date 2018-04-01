@@ -42,7 +42,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.home.HomeActivity"
+        <!--<activity android:name=".ui.home.HomeActivity"
             android:theme="@style/AppTheme">
             <intent-filter android:label="@string/filter_title_app">
                 <action android:name="android.intent.action.VIEW" />
@@ -55,7 +55,7 @@
 
         <activity
             android:name=".ui.web.WebViewActivity"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme"/>-->
 
     </application>
 

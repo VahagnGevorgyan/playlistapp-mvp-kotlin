@@ -23,16 +23,15 @@ import butterknife.ButterKnife
 import butterknife.Unbinder
 import com.playlistappkotlin.App
 import com.playlistappkotlin.R
-import com.playlistappkotlin.di.component.ActivityComponent
-import com.playlistappkotlin.di.component.DaggerActivityComponent
-import com.playlistappkotlin.di.module.ActivityModule
 import com.playlistappkotlin.ext.getNavigationBarSize
 import com.playlistappkotlin.ext.getStatusBarHeight
 import com.playlistappkotlin.ext.network.NetworkStateHelper
 import com.playlistappkotlin.ext.network.NetworkStateManager
 import com.playlistappkotlin.ext.setWindowUiVisibility
 import com.playlistappkotlin.ext.showLoadingDialog
-import com.playlistappkotlin.ui.home.HomeActivity
+import com.playlistappkotlin.inject.components.ActivityComponent
+import com.playlistappkotlin.inject.components.DaggerActivityComponent
+import com.playlistappkotlin.inject.modules.ActivityModule
 import timber.log.Timber
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import javax.inject.Inject
@@ -61,7 +60,12 @@ abstract class BaseActivity : EventBusActivity(), MvpView, BaseFragment.Callback
 
     private var mProgressDialog: ProgressDialog? = null
 
-    var activityComponent: ActivityComponent? = null
+    internal val activityComponent: ActivityComponent by lazy {
+        DaggerActivityComponent.builder()
+                .activityModule(ActivityModule(this))
+                .applicationComponent(App.mAppComponent)
+                .build()
+    }
 
     override val isNetworkConnected: Boolean
         get() = NetworkStateManager.isConnected(applicationContext)
@@ -89,10 +93,11 @@ abstract class BaseActivity : EventBusActivity(), MvpView, BaseFragment.Callback
         prepareWindow()
         setContentView(attachLayoutRes())
 
-        activityComponent = DaggerActivityComponent.builder()
-                .activityModule(ActivityModule(this))
-                .applicationComponent(App.mAppComponent)
-                .build()
+        try {
+            ActivityComponent::class.java.getDeclaredMethod("inject", this::class.java).invoke(activityComponent, this)
+        } catch(e: NoSuchMethodException) {
+            throw Exception("You forgot to add \"fun inject(activity: ${this::class.java.simpleName})\" in ActivityComponent")
+        }
 
         mUnBinder = ButterKnife.bind(this)
         initInjector()
@@ -228,8 +233,8 @@ abstract class BaseActivity : EventBusActivity(), MvpView, BaseFragment.Callback
     }
 
     private fun launchMainActivity() {
-        launchActivity(HomeActivity::class.java, Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        finish()
+//        launchActivity(HomeActivity::class.java, Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+//        finish()
     }
 
     private fun launchActivity(clazz: Class<out Activity>) {

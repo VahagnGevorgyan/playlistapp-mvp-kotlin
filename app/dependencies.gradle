@@ -1,0 +1,133 @@
+def dependencyGroup(Closure closure) {
+    closure.delegate = dependencies
+    return closure
+}
+
+def local = dependencyGroup {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+def ui = dependencyGroup {
+    // Support
+    implementation rootProject.ext.deps.supportLibrary
+    implementation rootProject.ext.deps.supportCompat
+    implementation rootProject.ext.deps.supportv4
+    implementation rootProject.ext.deps.supportv13
+    implementation rootProject.ext.deps.supportRecyclerView
+    implementation rootProject.ext.deps.supportDesign
+    implementation rootProject.ext.deps.supportPercent
+    implementation rootProject.ext.deps.supportCardView
+    implementation rootProject.ext.deps.supportConstraint
+
+    kapt rootProject.ext.deps.dataBinding
+}
+
+def network = dependencyGroup {
+    implementation  rootProject.ext.deps.retrofit
+    implementation  rootProject.ext.deps.gsonConverter
+    implementation  rootProject.ext.deps.retrofitAdapter
+    implementation  rootProject.ext.deps.gson
+
+    implementation  rootProject.ext.deps.okhttp3
+    implementation  rootProject.ext.deps.okhttp3urlConnection
+    implementation  rootProject.ext.deps.logging
+    implementation  rootProject.ext.deps.okio
+}
+
+def util = dependencyGroup {
+    implementation rootProject.ext.deps.kotlinStdLib
+
+    implementation rootProject.ext.deps.glide
+    annotationProcessor rootProject.ext.deps.glideannotationProcessor
+
+    implementation rootProject.ext.deps.calligraphyVersion
+
+    implementation rootProject.ext.deps.circleimageview
+    implementation rootProject.ext.deps.shortcutBadger
+
+    implementation(rootProject.ext.deps.crashlytics) {
+        transitive = true;
+    }
+    implementation(rootProject.ext.deps.crashlyticsAnswers) {
+        transitive = true;
+    }
+
+    implementation rootProject.ext.deps.otto
+
+    implementation rootProject.ext.deps.timber
+
+    implementation rootProject.ext.deps.butterknife
+    annotationProcessor rootProject.ext.deps.butterknifeCompiler
+
+    implementation rootProject.ext.deps.googleGcm
+    implementation rootProject.ext.deps.googleAnalytics
+}
+
+def db = dependencyGroup {
+    implementation rootProject.ext.deps.greenDao
+
+    implementation rootProject.ext.deps.roomRuntime
+    implementation rootProject.ext.deps.liveData
+    annotationProcessor rootProject.ext.deps.lifeCycleCompiler
+    implementation rootProject.ext.deps.roomRuntime
+    annotationProcessor rootProject.ext.deps.roomCompiler
+}
+
+def test = dependencyGroup {
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    // Dependencies for local unit tests
+    testImplementation rootProject.ext.deps.junit
+    testImplementation rootProject.ext.deps.mockwebserver
+    testImplementation rootProject.ext.deps.mockitoAll
+    testImplementation rootProject.ext.deps.hamcrestAll
+    testImplementation rootProject.ext.deps.powermockModuleJunit
+    testImplementation rootProject.ext.deps.powermockApiMockito
+    testImplementation rootProject.ext.deps.mockitoCore
+    testAnnotationProcessor rootProject.ext.deps.daggerCompiler
+
+    // Android Testing Support Library's runner and rules
+    androidTestImplementation rootProject.ext.deps.supportTestRunner
+    androidTestImplementation rootProject.ext.deps.supportTestRules
+
+    // Espresso UI Testing dependencies.
+    androidTestImplementation rootProject.ext.deps.espresso
+    androidTestImplementation rootProject.ext.deps.espressoContrib
+    androidTestImplementation rootProject.ext.deps.espressoIntents
+    androidTestImplementation rootProject.ext.deps.mockitoCore
+    androidTestAnnotationProcessor rootProject.ext.deps.daggerCompiler
+    androidTestImplementation(rootProject.ext.deps.espressoContrib) {
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude module: 'recyclerview-v7'
+    }
+    androidTestImplementation('com.squareup.okhttp3:mockwebserver:3.6.0') {
+        exclude module: 'okio'
+        exclude module: 'okhttp'
+    }
+}
+
+def di = dependencyGroup {
+    kapt rootProject.ext.deps.daggerCompiler
+    implementation rootProject.ext.deps.dagger
+}
+
+def rx = dependencyGroup {
+    implementation rootProject.ext.deps.rxJava
+    implementation rootProject.ext.deps.rxAndroid
+    implementation rootProject.ext.deps.rxNetwork
+}
+
+dependencies {
+    local()
+
+    ui()
+    db()
+    di()
+    rx()
+    network()
+    util()
+    test()
+}

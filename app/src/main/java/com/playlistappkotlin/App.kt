@@ -3,27 +3,25 @@ package com.playlistappkotlin
 import android.app.Application
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.answers.Answers
-import com.playlistappkotlin.di.api.ApiModule
-import com.playlistappkotlin.di.component.ApplicationComponent
-import com.playlistappkotlin.di.component.DaggerApplicationComponent
-import com.playlistappkotlin.di.module.ApplicationModule
 import com.playlistappkotlin.eventbus.SingletonBus
 import com.playlistappkotlin.ext.logging.DevelopmentTree
 import com.playlistappkotlin.ext.logging.ProductionTree
+import com.playlistappkotlin.inject.components.ApplicationComponent
+import com.playlistappkotlin.inject.components.DaggerApplicationComponent
+import com.playlistappkotlin.inject.modules.ApplicationModule
 import io.fabric.sdk.android.Fabric
 import timber.log.Timber
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig
-import javax.inject.Inject
 
 open class App: Application() {
 
     private lateinit var mContext: App
 
-    @Inject
-    protected lateinit var mCalligraphyConfig: CalligraphyConfig
+//    @Inject
+//    protected lateinit var mCalligraphyConfig: CalligraphyConfig
 
     companion object {
         lateinit var mAppComponent: ApplicationComponent
+            private set
     }
 
     override fun onCreate() {
@@ -49,14 +47,13 @@ open class App: Application() {
     private fun initializeInjector() {
         Timber.d("Initializing ApplicationComponent")
         mAppComponent = buildComponent()
-        mAppComponent.inject(this)
+//        mAppComponent.inject(this)
     }
 
     protected fun buildComponent(): ApplicationComponent {
         Timber.d("Build App Component")
         return DaggerApplicationComponent.builder()
                 .applicationModule(ApplicationModule(this))
-                .apiModule(ApiModule()) // TODO : Check if this necessary
                 .build()
     }
 
@@ -80,6 +77,6 @@ open class App: Application() {
      */
     private fun initializeCalligraphy() {
         Timber.d("Initializing CalligraphyConfig")
-        CalligraphyConfig.initDefault(mCalligraphyConfig)
+//        CalligraphyConfig.initDefault(mCalligraphyConfig)
     }
 }

@@ -1,7 +1,7 @@
-package com.playlistappkotlin.di.api
+package com.playlistappkotlin.inject.qualifier
 
 import javax.inject.Qualifier
 
 @Qualifier
 @Retention(AnnotationRetention.RUNTIME)
-annotation class ApiInfo
+annotation class PreferenceInfo

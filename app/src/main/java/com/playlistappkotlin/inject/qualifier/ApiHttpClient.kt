@@ -1,4 +1,4 @@
-package com.playlistappkotlin.di.api
+package com.playlistappkotlin.inject.qualifier
 
 import javax.inject.Qualifier
 

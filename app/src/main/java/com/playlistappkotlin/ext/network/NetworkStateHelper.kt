@@ -1,6 +1,6 @@
 package com.playlistappkotlin.ext.network
 
-import com.playlistappkotlin.di.PerActivity
+import com.playlistappkotlin.inject.scopes.PerActivity
 
 @PerActivity
 interface NetworkStateHelper {

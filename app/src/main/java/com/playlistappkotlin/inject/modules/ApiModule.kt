@@ -1,4 +1,4 @@
-package com.playlistappkotlin.di.api
+package com.playlistappkotlin.inject.modules
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -6,6 +6,9 @@ import com.playlistappkotlin.BuildConfig
 import com.playlistappkotlin.data.network.api.ApiHelper
 import com.playlistappkotlin.data.network.api.ApiInterface
 import com.playlistappkotlin.data.network.session.Session
+import com.playlistappkotlin.inject.qualifier.ApiHttpClient
+import com.playlistappkotlin.inject.qualifier.ApiInfo
+import com.playlistappkotlin.inject.qualifier.ApiUrl
 import dagger.Module
 import dagger.Provides
 import okhttp3.HttpUrl

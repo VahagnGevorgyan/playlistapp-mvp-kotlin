@@ -2,9 +2,9 @@ package com.playlistappkotlin.ui.base
 
 import com.playlistappkotlin.data.network.data.error.ApiError
 
-interface MvpPresenter<in V : MvpView> {
+interface MvpPresenter {
 
-    fun onAttach(mvpView: V)
+    fun onAttach(mvpView: MvpView)
 
     fun onDetach()
 

@@ -2,8 +2,8 @@ package com.playlistappkotlin.data.settings
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.playlistappkotlin.di.ApplicationContext
-import com.playlistappkotlin.di.PreferenceInfo
+import com.playlistappkotlin.inject.qualifier.AppContext
+import com.playlistappkotlin.inject.qualifier.PreferenceInfo
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -12,7 +12,7 @@ import javax.inject.Singleton
  */
 @Singleton
 class AppPreferences @Inject
-constructor(@ApplicationContext context: Context,
+constructor(@AppContext context: Context,
             @PreferenceInfo prefFileName: String) : SharedPreferences {
 
     private val sPreferences: SharedPreferences = context.getSharedPreferences(prefFileName, Context.MODE_PRIVATE)
