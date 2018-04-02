@@ -57,7 +57,7 @@ def util = dependencyGroup {
     implementation rootProject.ext.deps.timber
 
     implementation rootProject.ext.deps.butterknife
-    annotationProcessor rootProject.ext.deps.butterknifeCompiler
+    kapt rootProject.ext.deps.butterknifeCompiler
 
     implementation rootProject.ext.deps.googleGcm
     implementation rootProject.ext.deps.googleAnalytics

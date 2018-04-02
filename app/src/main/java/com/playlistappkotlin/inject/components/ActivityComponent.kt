@@ -6,6 +6,7 @@ import com.playlistappkotlin.inject.modules.ActivityModule
 import com.playlistappkotlin.inject.qualifier.ActivityFragmentManager
 import com.playlistappkotlin.inject.scopes.PerActivity
 import com.playlistappkotlin.inject.qualifier.ActivityContext
+import com.playlistappkotlin.ui.home.HomeActivity
 import com.playlistappkotlin.ui.splash.SplashActivity
 import dagger.Component
 
@@ -13,7 +14,7 @@ import dagger.Component
 @Component(dependencies = [(ApplicationComponent::class)], modules = [ActivityModule::class])
 interface ActivityComponent : ActivityComponentProvides {
 
-//    fun inject(activity: MainActivity)
+    fun inject(activity: HomeActivity)
     fun inject(activity: SplashActivity)
 
 }

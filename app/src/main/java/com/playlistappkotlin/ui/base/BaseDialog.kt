@@ -25,10 +25,10 @@ abstract class BaseDialog: DialogFragment(), DialogMvpView {
     private var mUnBinder: Unbinder? = null
 
     @BindView(R.id.progressBar)
-    internal var mProgressBar: ProgressBar? = null
+    @JvmField var mProgressBar: ProgressBar? = null
 
     override val isNetworkConnected: Boolean
-        get() = baseActivity != null && baseActivity!!.isNetworkConnected
+        get() = baseActivity?.isNetworkConnected ?: run { false }
 
     val activityComponent: ActivityComponent?
         get() = baseActivity?.activityComponent ?: run { null }

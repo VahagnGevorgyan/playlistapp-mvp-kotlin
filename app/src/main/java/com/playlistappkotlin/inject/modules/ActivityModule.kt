@@ -8,9 +8,11 @@ import com.playlistappkotlin.data.scheduler.ISchedulerProvider
 import com.playlistappkotlin.data.scheduler.SchedulerProvider
 import com.playlistappkotlin.ext.network.NetworkStateHelper
 import com.playlistappkotlin.ext.network.NetworkStateManager
+import com.playlistappkotlin.inject.qualifier.ActivityContext
 import com.playlistappkotlin.inject.qualifier.ActivityFragmentManager
 import com.playlistappkotlin.inject.scopes.PerActivity
-import com.playlistappkotlin.inject.qualifier.ActivityContext
+import com.playlistappkotlin.ui.home.HomeMvpPresenter
+import com.playlistappkotlin.ui.home.HomePresenter
 import com.playlistappkotlin.ui.splash.SplashMvpPresenter
 import com.playlistappkotlin.ui.splash.SplashPresenter
 import dagger.Module
@@ -62,6 +64,13 @@ class ActivityModule constructor (private val activity: AppCompatActivity) {
     @PerActivity
     internal fun provideSplashPresenter(
             presenter: SplashPresenter): SplashMvpPresenter {
+        return presenter
+    }
+
+    @Provides
+    @PerActivity
+    internal fun provideHomePresenter(
+            presenter: HomePresenter): HomeMvpPresenter {
         return presenter
     }
 }

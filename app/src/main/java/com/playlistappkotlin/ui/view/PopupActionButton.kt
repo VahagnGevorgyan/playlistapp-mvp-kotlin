@@ -17,9 +17,9 @@ import com.playlistappkotlin.R
 class PopupActionButton : LinearLayout {
 
     @BindView(R.id.button_title)
-    internal var mTitle: TextView? = null
+    lateinit var mTitle: TextView
     @BindDimen(R.dimen.navigation_margin)
-    internal var mMargin: Int = 0
+    @JvmField var mMargin: Int = 0
 
     init {
         init()
@@ -37,7 +37,7 @@ class PopupActionButton : LinearLayout {
     }
 
     fun setTitle(title: String) {
-        mTitle?.text = title
+        mTitle.text = title
     }
 
     /**

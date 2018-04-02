@@ -32,6 +32,7 @@ import com.playlistappkotlin.ext.showLoadingDialog
 import com.playlistappkotlin.inject.components.ActivityComponent
 import com.playlistappkotlin.inject.components.DaggerActivityComponent
 import com.playlistappkotlin.inject.modules.ActivityModule
+import com.playlistappkotlin.ui.home.HomeActivity
 import timber.log.Timber
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import javax.inject.Inject
@@ -45,13 +46,13 @@ abstract class BaseActivity : EventBusActivity(), MvpView, BaseFragment.Callback
      * Layout container for using some cases.
      */
     @BindView(R.id.layout_container)
-    internal var mContainer: View? = null
+    @JvmField var mContainer: View? = null
 
     /**
      * Progress bar for using local loading.
      */
     @BindView(R.id.progressBar)
-    internal var mProgressBar: ProgressBar? = null
+    @JvmField var mProgressBar: ProgressBar? = null
 
     /**
      * ButterKnife binder.
@@ -105,7 +106,7 @@ abstract class BaseActivity : EventBusActivity(), MvpView, BaseFragment.Callback
         prepareLayout()
     }
 
-    protected override fun onResume() {
+    override fun onResume() {
         super.onResume()
 
         initializeNetworkStateManager()
@@ -219,7 +220,7 @@ abstract class BaseActivity : EventBusActivity(), MvpView, BaseFragment.Callback
         }
     }
 
-    protected override fun onDestroy() {
+    override fun onDestroy() {
         mUnBinder?.unbind()
         super.onDestroy()
     }
@@ -233,8 +234,8 @@ abstract class BaseActivity : EventBusActivity(), MvpView, BaseFragment.Callback
     }
 
     private fun launchMainActivity() {
-//        launchActivity(HomeActivity::class.java, Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-//        finish()
+        launchActivity(HomeActivity::class.java, Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        finish()
     }
 
     private fun launchActivity(clazz: Class<out Activity>) {

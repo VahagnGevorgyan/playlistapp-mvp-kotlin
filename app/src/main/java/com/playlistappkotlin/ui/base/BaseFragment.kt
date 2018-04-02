@@ -18,15 +18,12 @@ import com.playlistappkotlin.inject.components.ActivityComponent
 
 abstract class BaseFragment : EventBusFragment(), MvpView {
 
-    var baseActivity: BaseActivity? = null
+    private var baseActivity: BaseActivity? = null
     private var mUnBinder: Unbinder? = null
     private var mProgressDialog: ProgressDialog? = null
 
-    /**
-     * Progress bar for using local loading.
-     */
     @BindView(R.id.progressBar)
-    internal var mProgressBar: ProgressBar? = null
+    lateinit var mProgressBar: ProgressBar
 
     /**
      * @return id of fragment
@@ -35,7 +32,7 @@ abstract class BaseFragment : EventBusFragment(), MvpView {
     protected abstract val rootViewId: Int
 
     override val isNetworkConnected: Boolean
-        get() = baseActivity != null && baseActivity!!.isNetworkConnected
+        get() = baseActivity?.isNetworkConnected ?: run { false }
 
     val activityComponent: ActivityComponent?
         get() = baseActivity?.activityComponent ?: run { null }
@@ -79,15 +76,11 @@ abstract class BaseFragment : EventBusFragment(), MvpView {
 
     override fun showProgressBar() {
         hideProgressBar()
-        mProgressBar?.let {
-            it.visibility = VISIBLE
-        }
+        mProgressBar.visibility = VISIBLE
     }
 
     override fun hideProgressBar() {
-        mProgressBar?.let {
-            it.visibility = View.GONE
-        }
+        mProgressBar.visibility = View.GONE
     }
 
     override fun showLoading() {

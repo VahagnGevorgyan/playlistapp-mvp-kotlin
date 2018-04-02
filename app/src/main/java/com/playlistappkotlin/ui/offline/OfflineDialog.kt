@@ -25,10 +25,10 @@ class OfflineDialog
 private constructor(private val mActivity: AppCompatActivity, private val mRetryRunnable: Runnable?) {
 
     @BindView(R.id.popup_buttons_container)
-    internal var mButtonsContainer: LinearLayout? = null
+    lateinit var mButtonsContainer: LinearLayout
 
     @BindString(R.string.popup_offline_retry)
-    internal var mButtonLabel: String? = null
+    lateinit var mButtonLabel: String
     private var mAlertDialog: AlertDialog? = null
     private var mUnBinder: Unbinder? = null
 
