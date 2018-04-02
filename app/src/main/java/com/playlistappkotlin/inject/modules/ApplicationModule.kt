@@ -11,7 +11,6 @@ import com.playlistappkotlin.data.settings.IAppSettingsHelper
 import com.playlistappkotlin.ext.Constants
 import com.playlistappkotlin.inject.qualifier.AppContext
 import com.playlistappkotlin.inject.qualifier.PreferenceInfo
-import com.playlistappkotlin.inject.scopes.PerApplication
 import dagger.Module
 import dagger.Provides
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig

@@ -68,9 +68,9 @@ def db = dependencyGroup {
 
     implementation rootProject.ext.deps.roomRuntime
     implementation rootProject.ext.deps.liveData
-    annotationProcessor rootProject.ext.deps.lifeCycleCompiler
+    kapt rootProject.ext.deps.lifeCycleCompiler
     implementation rootProject.ext.deps.roomRuntime
-    annotationProcessor rootProject.ext.deps.roomCompiler
+    kapt rootProject.ext.deps.roomCompiler
 }
 
 def test = dependencyGroup {

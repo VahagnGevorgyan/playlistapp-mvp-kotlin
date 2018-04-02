@@ -12,11 +12,10 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class DataManager @Inject
-constructor(@param:AppContext private val mContext: Context,
-            override val apiHelper: ApiHelper,
-            override val settingsHelper: IAppSettingsHelper,
-            override val dbHelper: IDbHelper) : IDataManager {
+class DataManager @Inject constructor(@param:AppContext private val mContext: Context,
+                                      override val apiHelper: ApiHelper,
+                                      override val settingsHelper: IAppSettingsHelper,
+                                      override val dbHelper: IDbHelper) : IDataManager {
 
 
     override val allTracks: Observable<List<TrackItem>>
