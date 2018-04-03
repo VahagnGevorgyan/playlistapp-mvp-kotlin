@@ -16,6 +16,7 @@ open class App: Application() {
 
     private lateinit var mContext: App
 
+
 //    @Inject
 //    protected lateinit var mCalligraphyConfig: CalligraphyConfig
 
