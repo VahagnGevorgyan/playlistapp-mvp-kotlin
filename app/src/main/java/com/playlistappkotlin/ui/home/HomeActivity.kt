@@ -18,6 +18,7 @@ import com.playlistappkotlin.ext.FragmentUtils.ABOUT_POSITION
 import com.playlistappkotlin.ext.FragmentUtils.FAVORITES_POSITION
 import com.playlistappkotlin.ext.FragmentUtils.TRACKS_POSITION
 import com.playlistappkotlin.ui.base.BaseActivity
+import com.playlistappkotlin.ui.home.settings.SettingsFragment
 import com.squareup.otto.Subscribe
 import timber.log.Timber
 import javax.inject.Inject
@@ -140,17 +141,17 @@ class HomeActivity : BaseActivity(), HomeMvpView, NavigationView.OnNavigationIte
     }
 
     override fun onBackPressed() {
-//        if (mDrawer!!.isDrawerOpen(GravityCompat.START)) {
-//            mDrawer!!.closeDrawer(GravityCompat.START)
-//        } else {
-//            val fragmentManager = supportFragmentManager
-//            val fragment = fragmentManager.findFragmentByTag(SettingsFragment.TAG)
-//            if (fragment == null) {
-//                super.onBackPressed()
-//            } else {
-//                onFragmentDetached(SettingsFragment.TAG)
-//            }
-//        }
+        if (mDrawer.isDrawerOpen(GravityCompat.START)) {
+            mDrawer.closeDrawer(GravityCompat.START)
+        } else {
+            val fragmentManager = supportFragmentManager
+            val fragment = fragmentManager.findFragmentByTag(SettingsFragment.TAG)
+            fragment?.let {
+                onFragmentDetached(SettingsFragment.TAG)
+            } ?: run {
+                super.onBackPressed()
+            }
+        }
     }
 
     override fun onFragmentDetached(tag: String) {
@@ -204,13 +205,13 @@ class HomeActivity : BaseActivity(), HomeMvpView, NavigationView.OnNavigationIte
 
     override fun showSettingsFragment() {
         Timber.d("Showing \"Settings\" fragment")
-//        lockDrawer()
-//        getSupportFragmentManager()
-//                .beginTransaction()
-//                .disallowAddToBackStack()
-//                .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
-//                .add(R.id.layout_container, SettingsFragment.newInstance(R.id.nav_tools), SettingsFragment.TAG)
-//                .commit()
+        lockDrawer()
+        supportFragmentManager
+                .beginTransaction()
+                .disallowAddToBackStack()
+                .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
+                .add(R.id.layout_container, SettingsFragment.newInstance(R.id.nav_tools), SettingsFragment.TAG)
+                .commit()
     }
 
     override fun showTracksFragment() {

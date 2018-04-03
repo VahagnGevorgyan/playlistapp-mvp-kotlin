@@ -30,7 +30,7 @@
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
 
-                <com.playlistapp.ui.view.CustomTextView
+                <com.playlistappkotlin.ui.view.CustomTextView
                     android:id="@+id/textViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -14,21 +14,14 @@ import com.playlistappkotlin.R
 import com.playlistappkotlin.ui.view.PopupActionButton
 import timber.log.Timber
 
-/**
- * Shows when network state was lost.
- */
-class OfflineDialog
-/**
- * Setting up OfflineDialog popup with retry button.
- *
- */
-private constructor(private val mActivity: AppCompatActivity, private val mRetryRunnable: Runnable?) {
+class OfflineDialog constructor(private val mActivity: AppCompatActivity, private val mRetryRunnable: Runnable?) {
 
     @BindView(R.id.popup_buttons_container)
     lateinit var mButtonsContainer: LinearLayout
 
     @BindString(R.string.popup_offline_retry)
     lateinit var mButtonLabel: String
+
     private var mAlertDialog: AlertDialog? = null
     private var mUnBinder: Unbinder? = null
 
@@ -39,17 +32,11 @@ private constructor(private val mActivity: AppCompatActivity, private val mRetry
         createDialog()
     }
 
-    /**
-     * Showing popup.
-     */
     fun show() {
         Timber.d("Showing popup")
-        mAlertDialog!!.show()
+        mAlertDialog?.show()
     }
 
-    /**
-     * Creating popup.
-     */
     private fun createDialog() {
         Timber.d("Creating Green Popup")
 
@@ -91,40 +78,32 @@ private constructor(private val mActivity: AppCompatActivity, private val mRetry
      */
     private fun customizeOfflineDialog() {
         Timber.d("Adding Retry button to the popup")
-        val retryButton = createActionButton(mButtonLabel, mButtonsContainer!!)
-        retryButton.setOnClickListener({ v ->
-            Timber.d("Pressed Retry button, dismissing popup")
+        val retryButton = createActionButton(mButtonLabel, mButtonsContainer)
+        retryButton.setOnClickListener({
             dismissPopup()
-            if (mRetryRunnable != null) {
+            mRetryRunnable?.let {
                 Timber.d("Executing Retry Runnable")
-                mRetryRunnable.run()
+                it.run()
             }
         })
     }
 
-    /**
-     * Creates action button for popup.
-     */
-    private fun createActionButton(buttonTitle: String?, buttonLayout: ViewGroup): PopupActionButton {
-        Timber.d("Creating Popup button with title: " + buttonTitle!!)
+    private fun createActionButton(buttonTitle: String, buttonLayout: ViewGroup): PopupActionButton {
+        Timber.d("Creating Popup button with title: $buttonTitle")
         val actionButton = PopupActionButton(mActivity)
         actionButton.setTitle(buttonTitle)
         buttonLayout.addView(actionButton, actionButton.getLayoutParams())
         return actionButton
     }
 
-    /**
-     * Destroying popup.
-     */
     private fun dismissPopup() {
         Timber.d("Destroying popup")
-        mAlertDialog!!.dismiss()
-        mUnBinder!!.unbind()
+        mAlertDialog?.dismiss()
+        mUnBinder?.unbind()
         isShown = false
     }
 
     companion object {
-
         private var isShown = false
 
         fun alreadyOnTheScreen(): Boolean {
@@ -147,8 +126,7 @@ private constructor(private val mActivity: AppCompatActivity, private val mRetry
 
             Timber.d("Will show popup in Activity: " + activity.javaClass.simpleName)
 
-            val noInternetPopup = OfflineDialog(activity,
-                    buttonRetryRunnable)
+            val noInternetPopup = OfflineDialog(activity, buttonRetryRunnable)
 
             try {
                 Timber.d("Showing \"No Internet connection\" popup")

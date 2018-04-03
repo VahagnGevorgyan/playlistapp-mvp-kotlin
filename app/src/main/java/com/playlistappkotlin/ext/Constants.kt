@@ -27,8 +27,8 @@ class Constants {
         const val ORDER_DETAIL_TYPE_DECLARE = "declarate"
 
 
-        val DEFAULT_FONT = "fonts/arial.ttf"
-        val CUSTOM_ATTR_SCHEMAS = "http://schemas.android.com/apk/res-auto"
+        const val DEFAULT_FONT = "fonts/arial.ttf"
+        const val CUSTOM_ATTR_SCHEMAS = "http://schemas.android.com/apk/res-auto"
 
         val SET_NOTIFICATION = "com.playlistapp.SET_NOTIFICATION"
 

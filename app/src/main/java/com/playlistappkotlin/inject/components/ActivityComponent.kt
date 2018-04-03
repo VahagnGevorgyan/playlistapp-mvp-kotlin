@@ -7,6 +7,7 @@ import com.playlistappkotlin.inject.qualifier.ActivityFragmentManager
 import com.playlistappkotlin.inject.scopes.PerActivity
 import com.playlistappkotlin.inject.qualifier.ActivityContext
 import com.playlistappkotlin.ui.home.HomeActivity
+import com.playlistappkotlin.ui.home.settings.SettingsFragment
 import com.playlistappkotlin.ui.splash.SplashActivity
 import dagger.Component
 
@@ -16,7 +17,7 @@ interface ActivityComponent : ActivityComponentProvides {
 
     fun inject(activity: HomeActivity)
     fun inject(activity: SplashActivity)
-
+    fun inject(fragment: SettingsFragment)
 }
 
 interface ActivityComponentProvides : AppComponentProvides {

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/side_nav_bar"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="@dimen/settings_bar_height"
+        android:gravity="center|start"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/nav_back_btn"
+            style="@style/Button.ImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:background="?android:selectableItemBackground"
+            android:tint="@color/white"
+            app:srcCompat="@drawable/ic_keyboard_backspace"
+            android:contentDescription="@null" />
+
+        <TextView
+            style="@style/TextStyle.Heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/nav_back_btn"
+            android:layout_toEndOf="@id/nav_back_btn"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/str_settings"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/save_btn"
+            style="@style/Button.ImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="?android:selectableItemBackground"
+            android:tint="@color/white"
+            app:srcCompat="@drawable/ic_check"
+            android:contentDescription="@null" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:padding="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.playlistappkotlin.ui.view.CustomTextView
+            android:id="@+id/textViewCountryTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="@dimen/settings_margin_controls"
+            android:clickable="false"
+            android:paddingBottom="0dp"
+            android:paddingTop="0dp"
+            android:text="@string/str_select_country"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:app_font="fonts/arial.ttf" />
+
+        <View
+            android:id="@+id/dividerCountryTitle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/settings_spinner_line_height"
+            android:layout_below="@+id/textViewCountryTitle"
+            android:layout_marginBottom="7dp"
+            android:background="@color/white" />
+
+        <Spinner
+            android:id="@+id/spinnerCountry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dividerCountryTitle"
+            android:layout_marginBottom="7dp"
+            android:layout_marginTop="@dimen/settings_margin_controls" />
+
+        <View
+            android:id="@+id/dividerSpinnerCountry"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/settings_spinner_line_height"
+            android:layout_below="@+id/spinnerCountry"
+            android:layout_marginBottom="7dp"
+            android:background="@color/black" />
+
+        <com.playlistappkotlin.ui.view.CustomTextView
+            android:id="@+id/textViewSpinnerCountryError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dividerSpinnerCountry"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="0dp"
+            android:clickable="false"
+            android:paddingBottom="0dp"
+            android:paddingTop="0dp"
+            android:text="@string/str_error_empty_text"
+            android:textColor="@color/error_color"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:app_font="fonts/arial.ttf" />
+
+        <com.playlistappkotlin.ui.view.CustomTextView
+            android:id="@+id/textViewLimitTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewSpinnerCountryError"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="@dimen/settings_margin_controls"
+            android:clickable="false"
+            android:paddingBottom="0dp"
+            android:paddingTop="0dp"
+            android:text="@string/str_select_limit"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:app_font="fonts/arial.ttf" />
+
+        <View
+            android:id="@+id/dividerLimitTitle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/settings_spinner_line_height"
+            android:layout_below="@+id/textViewLimitTitle"
+            android:layout_marginBottom="7dp"
+            android:background="@color/white" />
+
+        <Spinner
+            android:id="@+id/spinnerLimit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dividerLimitTitle"
+            android:layout_marginBottom="7dp"
+            android:layout_marginTop="@dimen/settings_margin_controls" />
+
+        <View
+            android:id="@+id/dividerSpinnerLimit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/settings_spinner_line_height"
+            android:layout_below="@+id/spinnerLimit"
+            android:layout_marginBottom="7dp"
+            android:background="@color/black" />
+
+        <com.playlistappkotlin.ui.view.CustomTextView
+            android:id="@+id/textViewSpinnerLimitError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dividerSpinnerLimit"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="0dp"
+            android:clickable="false"
+            android:paddingBottom="0dp"
+            android:paddingTop="0dp"
+            android:text="@string/str_error_empty_text"
+            android:textColor="@color/error_color"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:app_font="fonts/arial.ttf" />
+
+    </RelativeLayout>
+
+</LinearLayout>

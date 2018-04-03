@@ -18,16 +18,13 @@ import com.playlistappkotlin.inject.components.ActivityComponent
 
 abstract class BaseFragment : EventBusFragment(), MvpView {
 
-    private var baseActivity: BaseActivity? = null
+    protected var baseActivity: BaseActivity? = null
     private var mUnBinder: Unbinder? = null
     private var mProgressDialog: ProgressDialog? = null
 
     @BindView(R.id.progressBar)
-    lateinit var mProgressBar: ProgressBar
+    @JvmField var mProgressBar: ProgressBar? = null
 
-    /**
-     * @return id of fragment
-     */
     @get:LayoutRes
     protected abstract val rootViewId: Int
 
@@ -76,11 +73,11 @@ abstract class BaseFragment : EventBusFragment(), MvpView {
 
     override fun showProgressBar() {
         hideProgressBar()
-        mProgressBar.visibility = VISIBLE
+        mProgressBar?.visibility = VISIBLE
     }
 
     override fun hideProgressBar() {
-        mProgressBar.visibility = View.GONE
+        mProgressBar?.visibility = View.GONE
     }
 
     override fun showLoading() {
