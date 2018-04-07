@@ -7,12 +7,10 @@ import com.playlistappkotlin.ui.base.MvpView
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class SplashPresenter @Inject
-constructor(
-        IDataManager: IDataManager,
-        ISchedulerProvider: ISchedulerProvider,
-        compositeDisposable: CompositeDisposable
-) : BasePresenter(IDataManager, ISchedulerProvider, compositeDisposable), SplashMvpPresenter {
+class SplashPresenter @Inject constructor(dataManager: IDataManager,
+                                          schedulerProvider: ISchedulerProvider,
+                                          compositeDisposable: CompositeDisposable
+) : BasePresenter(dataManager, schedulerProvider, compositeDisposable), SplashMvpPresenter {
 
     override fun onAttach(mvpView: MvpView) {
         super.onAttach(mvpView)

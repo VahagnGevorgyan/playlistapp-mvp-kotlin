@@ -7,10 +7,10 @@ import io.reactivex.disposables.CompositeDisposable
 import java.util.*
 import javax.inject.Inject
 
-class SettingsPresenter @Inject constructor(IDataManager: IDataManager,
-                                            ISchedulerProvider: ISchedulerProvider,
+class SettingsPresenter @Inject constructor(dataManager: IDataManager,
+                                            schedulerProvider: ISchedulerProvider,
                                             compositeDisposable: CompositeDisposable)
-    : BasePresenter(IDataManager, ISchedulerProvider, compositeDisposable), SettingsMvpPresenter {
+    : BasePresenter(dataManager, schedulerProvider, compositeDisposable), SettingsMvpPresenter {
 
     override fun loadCountries() {
         if (!isViewAttached) {

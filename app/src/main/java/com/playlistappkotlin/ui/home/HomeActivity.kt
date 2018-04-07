@@ -18,6 +18,7 @@ import com.playlistappkotlin.ext.FragmentUtils.ABOUT_POSITION
 import com.playlistappkotlin.ext.FragmentUtils.FAVORITES_POSITION
 import com.playlistappkotlin.ext.FragmentUtils.TRACKS_POSITION
 import com.playlistappkotlin.ui.base.BaseActivity
+import com.playlistappkotlin.ui.home.about.AboutFragment
 import com.playlistappkotlin.ui.home.settings.SettingsFragment
 import com.squareup.otto.Subscribe
 import timber.log.Timber
@@ -26,7 +27,7 @@ import javax.inject.Inject
 class HomeActivity : BaseActivity(), HomeMvpView, NavigationView.OnNavigationItemSelectedListener {
 
     @Inject
-    lateinit var mPresenter: HomeMvpPresenter
+    lateinit var presenter: HomeMvpPresenter
 
     @BindView(R.id.toolbar)
     lateinit var mToolbar: Toolbar
@@ -59,7 +60,7 @@ class HomeActivity : BaseActivity(), HomeMvpView, NavigationView.OnNavigationIte
 
     override fun initViews() {
         Timber.d("Initializing view elements")
-        mPresenter.onAttach(this@HomeActivity)
+        presenter.onAttach(this@HomeActivity)
     }
 
     override fun prepareLayout() {
@@ -91,7 +92,7 @@ class HomeActivity : BaseActivity(), HomeMvpView, NavigationView.OnNavigationIte
         mDrawer.addDrawerListener(mDrawerToggle)
         mDrawerToggle.syncState()
         mNavigationView.setNavigationItemSelectedListener(this)
-        mPresenter.onNavMenuCreated()
+        presenter.onNavMenuCreated()
     }
 
     @Subscribe
@@ -195,12 +196,12 @@ class HomeActivity : BaseActivity(), HomeMvpView, NavigationView.OnNavigationIte
 
     override fun showAboutFragment() {
         Timber.d("Showing \"About\" fragment")
-//        getSupportFragmentManager()
-//                .beginTransaction()
+        supportFragmentManager
+                .beginTransaction()
 //                .addToBackStack(TracksFragment.TAG)
-//                .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
-//                .replace(R.id.layoutMainContainer, AboutFragment.newInstance(R.id.nav_about), AboutFragment.TAG)
-//                .commit()
+                .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
+                .replace(R.id.layoutMainContainer, AboutFragment.newInstance(R.id.nav_about), AboutFragment.TAG)
+                .commit()
     }
 
     override fun showSettingsFragment() {
@@ -262,7 +263,7 @@ class HomeActivity : BaseActivity(), HomeMvpView, NavigationView.OnNavigationIte
     }
 
     override fun onDestroy() {
-        mPresenter.onDetach()
+        presenter.onDetach()
         super.onDestroy()
     }
 }

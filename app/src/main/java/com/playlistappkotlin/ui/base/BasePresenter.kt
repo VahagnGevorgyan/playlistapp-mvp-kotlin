@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 open class BasePresenter @Inject constructor(val dataManager: IDataManager,
                                              val schedulerProvider: ISchedulerProvider,
-                                             val mCompositeDisposable: CompositeDisposable)
+                                             val compositeDisposable: CompositeDisposable)
     : MvpPresenter {
 
     var mvpView: MvpView? = null
@@ -18,15 +18,15 @@ open class BasePresenter @Inject constructor(val dataManager: IDataManager,
     val isViewAttached: Boolean
         get() = mvpView != null
 
-    val compositeDisposable: CompositeDisposable
-        get() = if (mCompositeDisposable.isDisposed) CompositeDisposable() else mCompositeDisposable
+    val disposable: CompositeDisposable
+        get() = if (compositeDisposable.isDisposed) CompositeDisposable() else compositeDisposable
 
     override fun onAttach(mvpView: MvpView) {
         this.mvpView = mvpView
     }
 
     override fun onDetach() {
-        mCompositeDisposable.dispose()
+        compositeDisposable.dispose()
         mvpView = null
     }
 

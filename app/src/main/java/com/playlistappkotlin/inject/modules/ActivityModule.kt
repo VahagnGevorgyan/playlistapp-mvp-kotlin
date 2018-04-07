@@ -13,6 +13,8 @@ import com.playlistappkotlin.inject.qualifier.ActivityFragmentManager
 import com.playlistappkotlin.inject.scopes.PerActivity
 import com.playlistappkotlin.ui.home.HomeMvpPresenter
 import com.playlistappkotlin.ui.home.HomePresenter
+import com.playlistappkotlin.ui.home.about.AboutMvpPresenter
+import com.playlistappkotlin.ui.home.about.AboutPresenter
 import com.playlistappkotlin.ui.home.settings.SettingsMvpPresenter
 import com.playlistappkotlin.ui.home.settings.SettingsPresenter
 import com.playlistappkotlin.ui.splash.SplashMvpPresenter
@@ -80,6 +82,13 @@ class ActivityModule constructor (private val activity: AppCompatActivity) {
     @PerActivity
     internal fun provideSettingsPresenter(
             presenter: SettingsPresenter): SettingsMvpPresenter {
+        return presenter
+    }
+
+    @Provides
+    @PerActivity
+    internal fun provideAboutPresenter(
+            presenter: AboutPresenter): AboutMvpPresenter {
         return presenter
     }
 }
