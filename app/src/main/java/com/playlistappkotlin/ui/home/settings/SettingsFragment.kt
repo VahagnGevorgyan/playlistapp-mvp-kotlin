@@ -51,8 +51,8 @@ class SettingsFragment : HomeBaseFragment(), SettingsMvpView {
     @ColorInt
     @JvmField var mColorError: Int = 0
 
-    lateinit var mCountryAdapter: CustomSpinnerAdapter
-    lateinit var mLimitAdapter: CustomSpinnerAdapter
+    private lateinit var mCountryAdapter: CustomSpinnerAdapter
+    private lateinit var mLimitAdapter: CustomSpinnerAdapter
 
     override val rootViewId: Int
         get() = R.layout.fragment_settings
@@ -71,9 +71,6 @@ class SettingsFragment : HomeBaseFragment(), SettingsMvpView {
         mPresenter.loadCountries()
     }
 
-    /**
-     * Prepares country spinner adapter
-     */
     private fun prepareCountrySpinner() {
         Timber.d("Preparing country spinner adapter")
         val countryItems = ArrayList<String>()
@@ -96,9 +93,6 @@ class SettingsFragment : HomeBaseFragment(), SettingsMvpView {
         }
     }
 
-    /**
-     * Prepares limit spinner adapter
-     */
     private fun prepareLimitSpinner() {
         Timber.d("Preparing limit spinner adapter")
         val limitResArray = getResources().getStringArray(R.array.limit_string_array)

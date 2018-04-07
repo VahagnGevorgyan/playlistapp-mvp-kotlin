@@ -83,9 +83,11 @@ class SettingsPresenter @Inject constructor(dataManager: IDataManager,
 
     private fun validateLimit(limit: String?, defValue: String): Boolean {
         var isValid = true
-        if (limit != null && limit != defValue) {
-            (mvpView as SettingsMvpView).clearLimitNotSelectedError()
-        } else {
+        limit?.let {
+            if (it != defValue) {
+                (mvpView as SettingsMvpView).clearLimitNotSelectedError()
+            }
+        } ?: run {
             isValid = false
             (mvpView as SettingsMvpView).showLimitNotSelectedError()
         }
@@ -94,9 +96,11 @@ class SettingsPresenter @Inject constructor(dataManager: IDataManager,
 
     private fun validateCountry(country: String?, defValue: String): Boolean {
         var isValid = true
-        if (country != null && country != defValue) {
-            (mvpView as SettingsMvpView).clearCountryNotSelectedError()
-        } else {
+        country?.let {
+            if (it != defValue) {
+                (mvpView as SettingsMvpView).clearCountryNotSelectedError()
+            }
+        } ?: run {
             isValid = false
             (mvpView as SettingsMvpView).showCountryNotSelectedError()
         }
