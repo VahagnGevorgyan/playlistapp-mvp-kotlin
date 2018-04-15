@@ -11,14 +11,15 @@ import com.playlistappkotlin.inject.components.DaggerApplicationComponent
 import com.playlistappkotlin.inject.modules.ApplicationModule
 import io.fabric.sdk.android.Fabric
 import timber.log.Timber
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig
+import javax.inject.Inject
 
 open class App: Application() {
 
     private lateinit var mContext: App
 
-
-//    @Inject
-//    protected lateinit var mCalligraphyConfig: CalligraphyConfig
+    @Inject
+    protected lateinit var mCalligraphyConfig: CalligraphyConfig
 
     companion object {
         lateinit var mAppComponent: ApplicationComponent
@@ -48,7 +49,7 @@ open class App: Application() {
     private fun initializeInjector() {
         Timber.d("Initializing ApplicationComponent")
         mAppComponent = buildComponent()
-//        mAppComponent.inject(this)
+        mAppComponent.inject(this)
     }
 
     protected fun buildComponent(): ApplicationComponent {
@@ -78,6 +79,6 @@ open class App: Application() {
      */
     private fun initializeCalligraphy() {
         Timber.d("Initializing CalligraphyConfig")
-//        CalligraphyConfig.initDefault(mCalligraphyConfig)
+        CalligraphyConfig.initDefault(mCalligraphyConfig)
     }
 }
