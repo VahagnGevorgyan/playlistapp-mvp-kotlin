@@ -13,7 +13,7 @@ import timber.log.Timber
 /**
  * Returns the pixel height of status bar is such is present.
  */
-fun getStatusBarHeight(context: Context, isDialog: Boolean): Int {
+fun getStatusBarHeight(context: Context): Int {
     var result = 0
     val res = context.resources
 

@@ -71,13 +71,27 @@ class TrackItem {
                 " }"
     }
 
-    override fun equals(o: Any?): Boolean {
-        if (this === o) return true
-        if (o == null || javaClass != o.javaClass) return false
-        if (!super.equals(o)) return false
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || javaClass != other.javaClass) return false
+        if (!super.equals(other)) return false
 
-        val that = o as TrackItem?
+        val that = other as TrackItem?
 
         return if (name != null) name == that!!.name else that!!.name == null
+    }
+
+    override fun hashCode(): Int {
+        var result = id?.hashCode() ?: 0
+        result = 31 * result + (name?.hashCode() ?: 0)
+        result = 31 * result + (duration?.hashCode() ?: 0)
+        result = 31 * result + (listeners?.hashCode() ?: 0)
+        result = 31 * result + (bid?.hashCode() ?: 0)
+        result = 31 * result + (url?.hashCode() ?: 0)
+        result = 31 * result + (streamAble?.hashCode() ?: 0)
+        result = 31 * result + (artist?.hashCode() ?: 0)
+        result = 31 * result + (imageList?.hashCode() ?: 0)
+        result = 31 * result + isFavorite.hashCode()
+        return result
     }
 }

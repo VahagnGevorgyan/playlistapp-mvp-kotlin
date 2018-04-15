@@ -120,7 +120,7 @@ abstract class BaseActivity : EventBusActivity(), MvpView, BaseFragment.Callback
     protected open fun prepareLayout() {
         Timber.d("Preparing activity layout and set sizes, if software buttons exists on screen")
         mContainer?.let {
-            it.setPadding(it.paddingLeft, it.paddingTop + getStatusBarHeight(this, false), it.paddingRight,
+            it.setPadding(it.paddingLeft, it.paddingTop + getStatusBarHeight(this), it.paddingRight,
                     getNavigationBarSize(this).y + it.paddingBottom)
         }
     }

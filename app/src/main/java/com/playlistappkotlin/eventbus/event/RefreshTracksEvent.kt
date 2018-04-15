@@ -1,0 +1,3 @@
+package com.playlistappkotlin.eventbus.event
+
+class RefreshTracksEvent
