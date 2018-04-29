@@ -3,6 +3,7 @@ package com.playlistappkotlin.ui.home.settings
 import com.playlistappkotlin.ui.base.MvpView
 
 interface SettingsMvpView : MvpView {
+
     fun updateCountries(countries: MutableList<String>)
 
     fun clearCountryNotSelectedError()

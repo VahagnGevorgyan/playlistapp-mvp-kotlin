@@ -20,6 +20,7 @@ import com.playlistappkotlin.ext.FragmentUtils.TRACKS_POSITION
 import com.playlistappkotlin.ui.base.BaseActivity
 import com.playlistappkotlin.ui.home.about.AboutFragment
 import com.playlistappkotlin.ui.home.settings.SettingsFragment
+import com.playlistappkotlin.ui.home.tracks.TracksFragment
 import com.squareup.otto.Subscribe
 import timber.log.Timber
 import javax.inject.Inject
@@ -198,7 +199,7 @@ class HomeActivity : BaseActivity(), HomeMvpView, NavigationView.OnNavigationIte
         Timber.d("Showing \"About\" fragment")
         supportFragmentManager
                 .beginTransaction()
-//                .addToBackStack(TracksFragment.TAG)
+                .addToBackStack(TracksFragment.TAG)
                 .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
                 .replace(R.id.layoutMainContainer, AboutFragment.newInstance(R.id.nav_about), AboutFragment.TAG)
                 .commit()
@@ -217,22 +218,22 @@ class HomeActivity : BaseActivity(), HomeMvpView, NavigationView.OnNavigationIte
 
     override fun showTracksFragment() {
         Timber.d("Showing \"Tracks\" fragment")
-//        val fragmentManager = getSupportFragmentManager()
-//        val fragment = fragmentManager.findFragmentByTag(TracksFragment.TAG)
-//        if (fragment == null) {
-//            getSupportFragmentManager()
-//                    .beginTransaction()
-//                    .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
-//                    .replace(R.id.layoutMainContainer, TracksFragment.newInstance(R.id.nav_tracks), TracksFragment.TAG)
-//                    .commit()
-//        } else {
-//            getSupportFragmentManager()
-//                    .beginTransaction()
-//                    .addToBackStack(TracksFragment.TAG)
-//                    .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
-//                    .replace(R.id.layoutMainContainer, TracksFragment.newInstance(R.id.nav_tracks))
-//                    .commit()
-//        }
+        val fragmentManager = supportFragmentManager
+        val fragment = fragmentManager.findFragmentByTag(TracksFragment.TAG)
+        if (fragment == null) {
+            fragmentManager
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
+                    .replace(R.id.layoutMainContainer, TracksFragment.newInstance(R.id.nav_tracks), TracksFragment.TAG)
+                    .commit()
+        } else {
+            fragmentManager
+                    .beginTransaction()
+                    .addToBackStack(TracksFragment.TAG)
+                    .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
+                    .replace(R.id.layoutMainContainer, TracksFragment.newInstance(R.id.nav_tracks))
+                    .commit()
+        }
     }
 
     @OnClick(R.id.btnFilter)

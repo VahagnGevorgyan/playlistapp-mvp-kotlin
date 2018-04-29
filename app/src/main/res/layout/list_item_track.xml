@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemLayout"
+    android:layout_width="match_parent"
+    android:layout_height="330dp"
+    android:layout_marginBottom="@dimen/activity_horizontal_margin"
+    android:layout_marginEnd="@dimen/dimen_track_item_margin"
+    android:layout_marginLeft="@dimen/dimen_track_item_margin"
+    android:layout_marginRight="@dimen/dimen_track_item_margin"
+    android:layout_marginStart="@dimen/dimen_track_item_margin"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="330dp"
+        android:background="@drawable/shadow_track_item"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:selectableItemBackground"
+            android:paddingBottom="20dp"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_horizontal_margin">
+
+            <ImageView
+                android:id="@+id/imageViewTrack"
+                android:layout_below="@+id/textViewName"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@null" />
+
+            <ProgressBar
+                android:id="@+id/loadingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="50dp" />
+
+            <com.playlistappkotlin.ui.view.CustomTextView
+                android:id="@+id/textViewDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageViewTrack"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:textAllCaps="false"
+                android:textColor="@color/colorEditTextNormal"
+                android:textSize="14sp"
+                app:app_font="fonts/arial.ttf"
+                tools:text="I'm on fire" />
+
+            <com.playlistappkotlin.ui.view.CustomTextView
+                android:id="@+id/textViewName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:layout_marginBottom="6dp"
+                android:textSize="18sp"
+                app:app_font="fonts/arial.ttf"
+                tools:text="Bruce Springsteen"
+                tools:ignore="RelativeOverlap" />
+
+            <ImageButton
+                android:id="@+id/btnFavorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:src="@android:drawable/btn_star_big_off"
+                android:background="@color/transparent"
+                android:contentDescription="@null" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/dimen_track_item_green_layout_margin"
+        android:layout_marginStart="@dimen/dimen_track_item_green_layout_margin"
+        android:layout_marginRight="@dimen/dimen_track_item_green_layout_margin"
+        android:layout_marginEnd="@dimen/dimen_track_item_green_layout_margin"
+        android:layout_marginBottom="@dimen/dimen_track_item_green_layout_margin"
+        android:background="@color/colorPrimaryDark">
+
+        <ImageView
+            android:id="@+id/imageViewIncLineGreen"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/bg_inline_green"
+            android:contentDescription="@null" />
+
+        <com.playlistappkotlin.ui.view.CustomTextView
+            android:id="@+id/textViewArtist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:app_font="fonts/arial.ttf"
+            tools:ignore="RelativeOverlap" />
+
+        <com.playlistappkotlin.ui.view.CustomTextView
+            android:id="@+id/textViewArtistArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:text="@string/str_more"
+            android:drawableEnd="@drawable/ic_forward"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:app_font="fonts/arialbd.ttf"
+            tools:ignore="RelativeOverlap" />
+    </RelativeLayout>
+
+</RelativeLayout>

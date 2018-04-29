@@ -11,12 +11,15 @@ import com.playlistappkotlin.ext.network.NetworkStateManager
 import com.playlistappkotlin.inject.qualifier.ActivityContext
 import com.playlistappkotlin.inject.qualifier.ActivityFragmentManager
 import com.playlistappkotlin.inject.scopes.PerActivity
+import com.playlistappkotlin.ui.adapter.TrackListAdapter
 import com.playlistappkotlin.ui.home.HomeMvpPresenter
 import com.playlistappkotlin.ui.home.HomePresenter
 import com.playlistappkotlin.ui.home.about.AboutMvpPresenter
 import com.playlistappkotlin.ui.home.about.AboutPresenter
 import com.playlistappkotlin.ui.home.settings.SettingsMvpPresenter
 import com.playlistappkotlin.ui.home.settings.SettingsPresenter
+import com.playlistappkotlin.ui.home.tracks.TracksMvpPresenter
+import com.playlistappkotlin.ui.home.tracks.TracksPresenter
 import com.playlistappkotlin.ui.splash.SplashMvpPresenter
 import com.playlistappkotlin.ui.splash.SplashPresenter
 import dagger.Module
@@ -90,5 +93,18 @@ class ActivityModule constructor (private val activity: AppCompatActivity) {
     internal fun provideAboutPresenter(
             presenter: AboutPresenter): AboutMvpPresenter {
         return presenter
+    }
+
+    @Provides
+    @PerActivity
+    internal fun provideTracksPresenter(
+            presenter: TracksPresenter): TracksMvpPresenter {
+        return presenter
+    }
+
+    @Provides
+    @PerActivity
+    internal fun provideTrackListAdapter(activity: AppCompatActivity): TrackListAdapter {
+        return TrackListAdapter(activity)
     }
 }
