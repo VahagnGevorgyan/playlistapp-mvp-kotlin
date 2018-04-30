@@ -24,6 +24,8 @@ import com.playlistappkotlin.ui.home.tracks.TracksMvpPresenter
 import com.playlistappkotlin.ui.home.tracks.TracksPresenter
 import com.playlistappkotlin.ui.splash.SplashMvpPresenter
 import com.playlistappkotlin.ui.splash.SplashPresenter
+import com.playlistappkotlin.ui.web.WebViewMvpPresenter
+import com.playlistappkotlin.ui.web.WebViewPresenter
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
@@ -114,6 +116,13 @@ class ActivityModule constructor (private val activity: AppCompatActivity) {
     @PerActivity
     internal fun provideFavoritesPresenter(
             presenter: FavoritesPresenter): FavoritesMvpPresenter {
+        return presenter
+    }
+
+    @Provides
+    @PerActivity
+    internal fun provideWebViewPresenter(
+            presenter: WebViewPresenter): WebViewMvpPresenter {
         return presenter
     }
 }

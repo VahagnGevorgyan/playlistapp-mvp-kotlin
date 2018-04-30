@@ -10,6 +10,7 @@ import butterknife.ButterKnife
 import com.playlistappkotlin.R
 import com.playlistappkotlin.data.network.data.track.TrackItem
 import com.playlistappkotlin.eventbus.event.FavoriteClickedEvent
+import com.playlistappkotlin.eventbus.event.RefreshTracksEvent
 import com.playlistappkotlin.ext.Constants.Companion.EXTRA_FRAGMENT_POSITION
 import com.playlistappkotlin.ext.Constants.Companion.EXTRA_MENU_ITEM_ID
 import com.playlistappkotlin.ext.FragmentUtils.TRACKS_POSITION
@@ -109,7 +110,7 @@ class TracksFragment : HomeBaseFragment(), TracksMvpView {
     }
 
     @Subscribe
-    fun onRefreshTracksEvent() {
+    fun onRefreshTracksEvent(event: RefreshTracksEvent) {
         Timber.d("Trying to refresh track list items")
         mPresenter.loadTrackItems()
     }

@@ -1,7 +1,10 @@
-package com.playlistappkotlin.ui.home.about
+package com.playlistappkotlin.ui.web
 
 import com.playlistappkotlin.inject.scopes.PerActivity
 import com.playlistappkotlin.ui.base.MvpPresenter
 
 @PerActivity
-interface AboutMvpPresenter : MvpPresenter
+interface WebViewMvpPresenter : MvpPresenter {
+
+    fun onPageFinished()
+}

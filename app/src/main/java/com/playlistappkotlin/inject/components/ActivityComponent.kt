@@ -12,6 +12,7 @@ import com.playlistappkotlin.ui.home.favorite.FavoritesFragment
 import com.playlistappkotlin.ui.home.settings.SettingsFragment
 import com.playlistappkotlin.ui.home.tracks.TracksFragment
 import com.playlistappkotlin.ui.splash.SplashActivity
+import com.playlistappkotlin.ui.web.WebViewActivity
 import dagger.Component
 
 @PerActivity
@@ -24,6 +25,7 @@ interface ActivityComponent : ActivityComponentProvides {
     fun inject(fragment: AboutFragment)
     fun inject(fragment: TracksFragment)
     fun inject(fragment: FavoritesFragment)
+    fun inject(fragment: WebViewActivity)
 }
 
 interface ActivityComponentProvides : AppComponentProvides {

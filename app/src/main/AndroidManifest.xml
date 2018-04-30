@@ -49,13 +49,12 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="http"
-                    android:host="@string/filter_uri_app"/>
+                    android:host="@string/filter_uri_app" />
             </intent-filter>
         </activity>
-        <!--
-                <activity
-                    android:name=".ui.web.WebViewActivity"
-                    android:theme="@style/AppTheme"/>-->
+
+        <activity android:name=".ui.web.WebViewActivity"
+            android:theme="@style/AppTheme" />
 
     </application>
 
