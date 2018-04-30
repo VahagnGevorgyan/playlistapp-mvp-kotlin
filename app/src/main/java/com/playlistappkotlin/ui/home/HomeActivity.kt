@@ -19,6 +19,7 @@ import com.playlistappkotlin.ext.FragmentUtils.FAVORITES_POSITION
 import com.playlistappkotlin.ext.FragmentUtils.TRACKS_POSITION
 import com.playlistappkotlin.ui.base.BaseActivity
 import com.playlistappkotlin.ui.home.about.AboutFragment
+import com.playlistappkotlin.ui.home.favorite.FavoritesFragment
 import com.playlistappkotlin.ui.home.settings.SettingsFragment
 import com.playlistappkotlin.ui.home.tracks.TracksFragment
 import com.squareup.otto.Subscribe
@@ -187,12 +188,12 @@ class HomeActivity : BaseActivity(), HomeMvpView, NavigationView.OnNavigationIte
 
     override fun showFavoritesFragment() {
         Timber.d("Showing \"Favorites\" fragment")
-//        supportFragmentManager
-//                .beginTransaction()
-//                .addToBackStack(FavoritesFragment.TAG)
-//                .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
-//                .replace(R.id.layoutMainContainer, FavoritesFragment.newInstance(R.id.nav_favorites), FavoritesFragment.TAG)
-//                .commit()
+        supportFragmentManager
+                .beginTransaction()
+                .addToBackStack(FavoritesFragment.TAG)
+                .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
+                .replace(R.id.layoutMainContainer, FavoritesFragment.newInstance(R.id.nav_favorites), FavoritesFragment.TAG)
+                .commit()
     }
 
     override fun showAboutFragment() {

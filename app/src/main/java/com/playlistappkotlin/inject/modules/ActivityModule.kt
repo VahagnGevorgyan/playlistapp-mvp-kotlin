@@ -16,6 +16,8 @@ import com.playlistappkotlin.ui.home.HomeMvpPresenter
 import com.playlistappkotlin.ui.home.HomePresenter
 import com.playlistappkotlin.ui.home.about.AboutMvpPresenter
 import com.playlistappkotlin.ui.home.about.AboutPresenter
+import com.playlistappkotlin.ui.home.favorite.FavoritesMvpPresenter
+import com.playlistappkotlin.ui.home.favorite.FavoritesPresenter
 import com.playlistappkotlin.ui.home.settings.SettingsMvpPresenter
 import com.playlistappkotlin.ui.home.settings.SettingsPresenter
 import com.playlistappkotlin.ui.home.tracks.TracksMvpPresenter
@@ -106,5 +108,12 @@ class ActivityModule constructor (private val activity: AppCompatActivity) {
     @PerActivity
     internal fun provideTrackListAdapter(activity: AppCompatActivity): TrackListAdapter {
         return TrackListAdapter(activity)
+    }
+
+    @Provides
+    @PerActivity
+    internal fun provideFavoritesPresenter(
+            presenter: FavoritesPresenter): FavoritesMvpPresenter {
+        return presenter
     }
 }
